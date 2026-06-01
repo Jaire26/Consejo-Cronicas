@@ -1,0 +1,21 @@
+.contenido-cronica{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    opacity:0;
+
+    transition:.5s;
+
+    margin-top:0;
+}
+
+.contenido-cronica.mostrar{
+
+    max-height:500px;
+
+    opacity:1;
+
+    margin-top:20px;
+}

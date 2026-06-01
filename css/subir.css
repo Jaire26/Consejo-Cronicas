@@ -1,0 +1,165 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+
+    background:#FFF8F1;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    padding:20px;
+}
+
+.upload-container{
+    width:100%;
+    max-width:700px;
+}
+
+.upload-card{
+    background:white;
+
+    padding:45px;
+
+    border-radius:30px;
+
+    box-shadow:0 10px 30px rgba(62,22,19,.08);
+
+    border:1px solid #F1D8B8;
+}
+
+.upload-card h1{
+    font-family:'Playfair Display', serif;
+
+    color:#3E1613;
+
+    margin-bottom:10px;
+
+    font-size:2.5rem;
+}
+
+.upload-card p{
+    color:#7C3F20;
+
+    margin-bottom:35px;
+
+    line-height:1.7;
+}
+
+.input-group{
+    margin-bottom:25px;
+}
+
+.input-group label{
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#3E1613;
+}
+
+.input-group input,
+.input-group textarea{
+    width:100%;
+
+    padding:15px;
+
+    border:1px solid #F1D8B8;
+
+    border-radius:15px;
+
+    outline:none;
+
+    font-family:'Poppins', sans-serif;
+
+    background:#FFF8F1;
+
+    transition:.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+    border-color:#D38C3A;
+
+    background:white;
+}
+
+textarea{
+    resize:none;
+
+    height:140px;
+}
+
+input[type="file"]{
+    background:white;
+
+    cursor:pointer;
+}
+
+.btn-upload{
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#3E1613;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-upload:hover{
+    background:#7C3F20;
+}
+
+.btn-volver-fixed{
+    position: fixed;
+
+    top: 25px;
+
+    left: 25px;
+
+    background: var(--color1);
+
+    color: rgb(0, 0, 0);
+
+    text-decoration: none;
+
+    padding: 12px 22px;
+
+    border-radius: 50px;
+
+    font-weight: 600;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+
+    transition: .3s;
+
+    z-index: 9999;
+}
+
+.btn-volver-fixed:hover{
+    background: var(--color2);
+
+    transform: translateY(-2px);
+}
