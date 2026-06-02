@@ -349,11 +349,9 @@ section{
 }
 .cards{
   display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit, minmax(280px,1fr));
-
+  grid-template-columns:repeat(3,1fr);
   gap:35px;
+  margin-bottom:40px;
 }
 
 .card{
@@ -405,6 +403,30 @@ section{
   line-height:1.8;
 
   color:#6F4A33;
+}
+/* TARJETA IDENTIDAD */
+
+.identidad-card{
+  display:flex;
+  align-items:stretch;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.identidad-card img{
+  width:35%;
+  object-fit:cover;
+}
+
+.identidad-card .card-content{
+  width:65%;
+  padding:35px;
+}
+
+.identidad-card h3{
+  font-size:2rem;
+  color:var(--color2);
+  margin-bottom:20px;
 }
 .gallery{
   display:grid;
@@ -466,18 +488,16 @@ footer p{
   opacity:1;
   transform:translateY(0px);
 }
-
 @media(max-width:900px){
 
-  nav{
-    flex-direction:column;
-
-    gap:15px;
-  }
+  .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
   .menu{
     flex-wrap:wrap;
-
     justify-content:center;
   }
 
@@ -493,17 +513,25 @@ footer p{
     font-size:2.2rem;
   }
 
-}
-#historia{
-  background:#FFF8F1;
-}
+  .cards{
+    grid-template-columns:1fr;
+  }
 
-#cronicas{
-  background:#FDF1E3;
-}
+  .identidad-card{
+    flex-direction:column;
+  }
 
-#galeria{
-  background:#FFF8F1;
+  .identidad-card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    object-position:center 70%;
+  }
+
+  .identidad-card .card-content{
+    width:100%;
+  }
+
 }
 
 @keyframes carruselFondo {

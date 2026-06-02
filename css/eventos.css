@@ -14,7 +14,6 @@
   box-shadow: 0 6px 15px rgba(0,0,0,.04);
   transition: transform .3s;
 }
-
 .feed-card:hover {
   transform: translateY(-4px);
 }
@@ -27,7 +26,6 @@
   height: 100%;
   object-fit: cover;
 }
-
 .feed-info {
   padding: 30px;
   width: 65%;
@@ -35,7 +33,6 @@
   flex-direction: column;
   justify-content: center;
 }
-
 .tag {
   display: inline-block;
   align-self: flex-start;

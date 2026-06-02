@@ -34,8 +34,6 @@
 .btn-admin:hover{
     background: var(--color2);
 }
-
-
 .image-viewer{
     position:fixed;
 
@@ -54,7 +52,6 @@
 
     z-index:99999;
 }
-
 .image-viewer img{
     max-width:90%;
 
@@ -62,7 +59,6 @@
 
     border-radius:20px;
 }
-
 #close-viewer{
     position:absolute;
 
