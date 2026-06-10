@@ -111,7 +111,8 @@
       </div>
     </div>
     <div class="card">
-      <img src="img/Huejutla, Hidalgo.jpg" alt="Propósito">
+      <img src="img/Huejutla, Hidalgo.jpg" alt="Propósito">janin2006
+      
 
       <div class="card-content">
         <h3>Propósito</h3>
