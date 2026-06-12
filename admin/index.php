@@ -39,7 +39,6 @@ if (!isset($_SESSION["id_usuario"])) {
         <input type="text" placeholder="Buscar...">
       </div>
  
-      <!-- Muestra el nombre del usuario logueado -->
       <span class="usuario-sesion">
         Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?>
       </span>

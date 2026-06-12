@@ -15,10 +15,8 @@ if ($_SESSION["id_rol"] != 1) {
 require_once(__DIR__ . "/../conexion/conexion.php");
 $mensaje = "";
 $error   = "";
- 
-// =====================
+
 // REGISTRAR NUEVO USUARIO
-// =====================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["accion"]) && $_POST["accion"] == "registrar") {
  
     $nombre   = trim($_POST["nombre"]);
@@ -53,10 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["accion"]) && $_POST["a
         }
     }
 }
- 
-// =====================
 // ELIMINAR USUARIO
-// =====================
+
 if (isset($_GET["eliminar"])) {
     $id = intval($_GET["eliminar"]);
     // No permitir eliminar al propio admin logueado
@@ -70,9 +66,8 @@ if (isset($_GET["eliminar"])) {
     }
 }
  
-// =====================
 // OBTENER LISTA DE USUARIOS
-// =====================
+
 $usuarios = mysqli_query($conn, "
     SELECT u.id_usuario, u.nombre, u.paterno, u.materno, u.cargo, u.correo, u.telefono, u.estado, u.id_rol, r.nombre_rol
     FROM usuarios u
@@ -127,9 +122,7 @@ $usuarios = mysqli_query($conn, "
       <div class="alerta alerta-error"><?php echo $error; ?></div>
     <?php endif; ?>
  
-    <!-- Botón para mostrar/ocultar formulario -->
-    <button class="toggle-form" onclick="toggleFormulario()">+ Registrar nuevo usuario</button>
- 
+  
     <!-- Formulario de registro -->
     <div class="form-registro" id="form-registro" style="display:none;">
       <h3>Nuevo usuario</h3>
@@ -184,8 +177,6 @@ $usuarios = mysqli_query($conn, "
         <button type="submit" class="btn-guardar">Guardar usuario</button>
       </form>
     </div>
- 
-    <!-- Tabla de usuarios registrados -->
     <table class="tabla-usuarios">
       <thead>
         <tr>
