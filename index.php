@@ -41,7 +41,7 @@
       <div class="search-box">
         <input type="text" placeholder="Buscar...">
       </div>
-      <a href="login.php" class="btn-login">
+      <a href="login.php" class="btn-login">  
         Iniciar sesión
       </a>
     </div>

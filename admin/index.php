@@ -86,7 +86,7 @@ if (!isset($_SESSION["id_usuario"])) {
       <p>Agrega eventos importantes.</p>
     </a>
  
-    <a href="../admin/perfilesadmin.html" class="opcion-card">
+    <a href="../admin/perfilesadmin.php" class="opcion-card">
       <h3>Perfiles</h3>
       <p>Gestiona al equipo.</p>
     </a>

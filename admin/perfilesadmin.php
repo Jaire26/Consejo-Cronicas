@@ -1,6 +1,5 @@
 
 <?php
-session_start();
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
@@ -12,8 +11,8 @@ if ($_SESSION["id_rol"] != 1) {
     exit();
 }
  
-require_once("../conexion/conexion.php");
- 
+//require_once("../conexion/conexion.php");//esto marca error
+require_once(__DIR__ . "/../conexion/conexion.php");
 $mensaje = "";
 $error   = "";
  
