@@ -99,7 +99,7 @@ $usuarios = mysqli_query($conn, "
     <li><a href="../admin/cronicasadmin.html">Crónicas</a></li>
     <li><a href="../admin/galeriaadmin.html">Galería</a></li>
     <li><a href="../admin/eventosadmin.html">Eventos</a></li>
-    <li><a href="../admin/perfilesadmin.php" class="active">Perfiles</a></li>
+    <li><a href="../admin/perfilesadmin.php">Perfiles</a></li>
     <li><a href="../admin/noticiasadmin.html">Noticias</a></li>
     <li><a href="../admin/entrevistasadmin.html">Entrevistas</a></li>
     <li><a href="../conexion/cerrar_sesion.php">Cerrar Sesión</a></li>

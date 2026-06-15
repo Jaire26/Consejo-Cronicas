@@ -43,7 +43,6 @@ if (!isset($_SESSION["id_usuario"])) {
         Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?>
       </span>
  
-      <!-- Cerrar sesión ahora apunta al archivo correcto -->
       <a href="../conexion/cerrar_sesion.php" class="btn-login">Cerrar Sesión</a>
  
     </div>
