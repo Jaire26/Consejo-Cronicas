@@ -1,14 +1,21 @@
-Conexion con la base de datos
 <?php
 
 $host = "localhost";
 $usuario = "root";
 $password = "";
-$basedatos = "cronica_huejutlense";
+$base_datos = "cronica_huejutlense";
 
-$conn = new mysqli($host, $usuario, $password, $basedatos);
+$conn = mysqli_connect(
+    $host,
+    $usuario,
+    $password,
+    $base_datos
+);
 
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+if (!$conn) {
+    die("Error de conexión: " . mysqli_connect_error());
 }
+
+mysqli_set_charset($conn, "utf8");
+
 ?>
