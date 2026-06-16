@@ -7,6 +7,7 @@ if (!isset($_SESSION["id_usuario"])) {
     exit();
 }
 
+<<<<<<< HEAD
 include("../conexion/conexion.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,6 +39,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo "Error al subir la imagen";
 
+=======
+// 1. Incluimos la conexión a la base de datos cronica_huejutlense
+require_once("../conexion/conexion.php");
+
+// 2. Detectamos si el usuario dio clic en "Publicar Historia"
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    // Saneamos las entradas para evitar inyecciones o caracteres raros
+    $titulo = mysqli_real_escape_string($conn, $_POST['titulo']);
+    $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
+    
+    // 3. Procesamos el archivo de la fotografía principal
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+        $nombre_original = $_FILES['imagen']['name'];
+        $temporal = $_FILES['imagen']['tmp_name'];
+        $extension = pathinfo($nombre_original, PATHINFO_EXTENSION);
+        
+        // Creamos un nombre único aleatorio para que no se dupliquen archivos en la carpeta fisica img/
+        $nuevo_nombre_img = "historia_" . uniqid() . "." . $extension;
+        $ruta_destino = "../img/" . $nuevo_nombre_img;
+        
+        // Movemos el archivo de la memoria temporal a la carpeta real del proyecto
+        if (move_uploaded_file($temporal, $ruta_destino)) {
+            
+            // 4. Insertamos el registro en la tabla exacta de la base de datos
+            $sql = "INSERT INTO historias (titulo, descripcion, imagen) VALUES ('$titulo', '$descripcion', '$nuevo_nombre_img')";
+            
+            if (mysqli_query($conn, $sql)) {
+                echo "<script>
+                        alert('¡Historia publicada con éxito!');
+                        window.location.href = 'historiaadmin.php';
+                      </script>";
+                exit();
+            } else {
+                echo "<script>alert('Error en el registro de la BD: " . mysqli_error($conn) . "');</script>";
+            }
+        } else {
+            echo "<script>alert('Error crítico al guardar la imagen en el servidor.');</script>";
+        }
+    } else {
+        echo "<script>alert('Por favor, selecciona un archivo de imagen válido.');</script>";
+>>>>>>> e722deeb0d7cd6d95d8cd11e3c5ebeaa625d58f7
     }
 }
 ?>
@@ -66,7 +109,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>
             Registra acontecimientos e historias de Huejutla.
         </p>
-
         <form method="POST" enctype="multipart/form-data">
 
             <div class="input-group">
