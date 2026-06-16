@@ -1,22 +1,18 @@
-
 <?php
+session_start();
+
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
- 
-// Solo el admin puede acceder a esta página
 if ($_SESSION["id_rol"] != 1) {
     header("Location: ../admin/index.php");
     exit();
 }
- 
-//require_once("../conexion/conexion.php");//esto marca error
 require_once(__DIR__ . "/../conexion/conexion.php");
 $mensaje = "";
 $error   = "";
 
-// REGISTRAR NUEVO USUARIO
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["accion"]) && $_POST["accion"] == "registrar") {
  
     $nombre   = trim($_POST["nombre"]);
@@ -28,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["accion"]) && $_POST["a
     $password = trim($_POST["password"]);
     $id_rol   = intval($_POST["id_rol"]);
  
-    // Verificar que el correo no exista ya
     $check = mysqli_prepare($conn, "SELECT id_usuario FROM usuarios WHERE correo = ?");
     mysqli_stmt_bind_param($check, "s", $correo);
     mysqli_stmt_execute($check);
@@ -51,11 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["accion"]) && $_POST["a
         }
     }
 }
-// ELIMINAR USUARIO
 
+//eliminar usuario
 if (isset($_GET["eliminar"])) {
     $id = intval($_GET["eliminar"]);
-    // No permitir eliminar al propio admin logueado
     if ($id != $_SESSION["id_usuario"]) {
         $sql = mysqli_prepare($conn, "DELETE FROM usuarios WHERE id_usuario = ?");
         mysqli_stmt_bind_param($sql, "i", $id);
@@ -65,9 +59,7 @@ if (isset($_GET["eliminar"])) {
         $error = "No puedes eliminar tu propia cuenta.";
     }
 }
- 
-// OBTENER LISTA DE USUARIOS
-
+//Pra obtener lista de usuarios
 $usuarios = mysqli_query($conn, "
     SELECT u.id_usuario, u.nombre, u.paterno, u.materno, u.cargo, u.correo, u.telefono, u.estado, u.id_rol, r.nombre_rol
     FROM usuarios u
@@ -94,14 +86,14 @@ $usuarios = mysqli_query($conn, "
     <img src="../img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
   </div>
   <ul class="menu">
-    <li><a href="../admin/index.php">Inicio</a></li>
-    <li><a href="../admin/historiaadmin.html">Historia</a></li>
-    <li><a href="../admin/cronicasadmin.html">Crónicas</a></li>
-    <li><a href="../admin/galeriaadmin.html">Galería</a></li>
-    <li><a href="../admin/eventosadmin.html">Eventos</a></li>
-    <li><a href="../admin/perfilesadmin.php">Perfiles</a></li>
-    <li><a href="../admin/noticiasadmin.html">Noticias</a></li>
-    <li><a href="../admin/entrevistasadmin.html">Entrevistas</a></li>
+    <li><a href="index.php">Inicio</a></li>
+    <li><a href="historiaadmin.php">Historia</a></li>
+    <li><a href="cronicasadmin.php">Crónicas</a></li>
+    <li><a href="galeriaadmin.php">Galería</a></li>
+    <li><a href="eventosadmin.php">Eventos</a></li>
+    <li><a href="perfilesadmin.php">Perfiles</a></li>
+    <li><a href="noticiasadmin.php">Noticias</a></li>
+    <li><a href="entrevistasadmin.php">Entrevistas</a></li>
     <li><a href="../conexion/cerrar_sesion.php">Cerrar Sesión</a></li>
   </ul>
 </nav>
@@ -122,8 +114,6 @@ $usuarios = mysqli_query($conn, "
       <div class="alerta alerta-error"><?php echo $error; ?></div>
     <?php endif; ?>
  
-  
-    <!-- Formulario de registro -->
     <div class="form-registro" id="form-registro" style="display:none;">
       <h3>Nuevo usuario</h3>
       <form method="POST">
@@ -177,6 +167,7 @@ $usuarios = mysqli_query($conn, "
         <button type="submit" class="btn-guardar">Guardar usuario</button>
       </form>
     </div>
+
     <table class="tabla-usuarios">
       <thead>
         <tr>

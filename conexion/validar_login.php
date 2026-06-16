@@ -1,6 +1,10 @@
 <?php
 session_start();
-require_once("conexion.php");
+
+// AJUSTE 1: Como validar_login.php está DENTRO de la carpeta 'conexion', 
+// ya NO necesitas escribir "conexion.php" a secas si está al mismo nivel.
+// Si tu archivo de conexión está en la misma carpeta, se queda así.
+require_once("conexion.php"); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -20,22 +24,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificación segura usando el Hash de PHP
         if (password_verify($password, $usuario["password_hash"])) {
             
+            // Las variables de sesión coinciden perfectamente con tu admin/index.php
             $_SESSION["id_usuario"] = $usuario["id_usuario"];
             $_SESSION["nombre"] = $usuario["nombre"];
             $_SESSION["id_rol"] = $usuario["id_rol"];
 
-            header("Location: ../admin/");
+            // AJUSTE 2: Ruta de Redirección. 
+            // validar_login.php está en 'conexion/'. Debe subir un nivel (../) 
+            // para salir a la raíz y luego entrar a 'admin/index.php'
+            header("Location: ../admin/index.php");
             exit();
 
         } else {
-            echo "Contraseña incorrecta.";
+            // Consejo: En lugar de un 'echo' suelto, es mejor regresarlo al login con un mensaje de error
+            header("Location: ../login.php?error=pass_incorrecto");
+            exit();
         }
 
     } else {
-        echo "Usuario no encontrado o inactivo.";
+        header("Location: ../login.php?error=user_no_encontrado");
+        exit();
     }
 
 } else {
+    // AJUSTE 3: Para regresar al login desde la carpeta 'conexion/', debes subir un nivel
     header("Location: ../login.php");
     exit();
 }

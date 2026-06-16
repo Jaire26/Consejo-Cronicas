@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION["id_usuario"])) {
+    header("Location: ../login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,18 +19,20 @@
   <nav id="sidebar">
     <div class="logo">
       <img src="../img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
-
     </div>
 
+    <!-- Correción de .html a php para que fincione ya que edtaban en html para 
+     cargar en el server -->
+    
     <ul class="menu">
-      <li><a href="../admin/indexadmin.html">Inicio</a></li>
-      <li><a href="../admin/historiaadmin.html">Historia</a></li>
-      <li><a href="../admin/cronicasadmin.html">Crónicas</a></li>
-      <li><a href="../admin/galeriaadmin.html">Galería</a></li>
-      <li><a href="../admin/eventosadmin.html">Eventos</a></li>
-      <li><a href="../admin/perfilesadmin.php">Perfiles</a></li>
-      <li><a href="../admin/noticiasadmin.html">Noticias</a></li>
-      <li><a href="../admin/entrevistasadmin.html">Entrevistas</a></li>
+      <li><a href="index.php">Inicio</a></li>
+      <li><a href="historiaadmin.php">Historia</a></li>
+      <li><a href="cronicasadmin.php">Crónicas</a></li>
+      <li><a href="galeriaadmin.php">Galería</a></li>
+      <li><a href="eventosadmin.php">Eventos</a></li>
+      <li><a href="perfilesadmin.php">Perfiles</a></li>
+      <li><a href="noticiasadmin.php">Noticias</a></li>
+      <li><a href="entrevistasadmin.php">Entrevistas</a></li>
     </ul>
   </nav>
 
@@ -52,28 +61,16 @@
           <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop">
           <div class="card-content">
             <h3>Tradiciones</h3>
-            <p>El Xantolo representa una de las celebraciones más importantes.</p>
+            <p>El Xantolo representa una de las celebrations más importantes.</p>
           </div>
         </div>
-
-
-        
-  <div class="card admin-card">
-
-    <div class="card-content">
-
-        <h3>Agregar Contenido</h3>
-
-        <p>
-            Administre la galeria.
-        </p>
-
-        <a href="../subir/subirhis.html" class="btn-admin">
-             Agregar
-        </a>
-
-    </div>
-
+        <div class="card admin-card">
+          <div class="card-content">
+              <h3>Agregar Contenido</h3>
+              <p>Administre la historia.</p>
+              <a href="../subir/subirhis.html" class="btn-admin">Agregar</a>
+          </div>
+        </div>
       </div>
 
     </section>
@@ -81,26 +78,12 @@
 
   <footer class="footer-global">
     <div class="footer-content">
-      <h2>
-      Crónica Huejutlense
-  </h2>
-
-  <div class="footer-contact"">
-  
-  <p>
-    <strong>Correo:</strong>
-    contacto@cronicahuejutla.com
-  </p>
-
-  <p>
-    <strong>Teléfono</strong>
-    +52 775 487 9831
-  </p>
-
-  <p>
-    <strong>Ubicación</strong>
-    Hujutla de Reyes,Hidalgo
-  </p>
+      <h2>Crónica Huejutlense</h2>
+      <div class="footer-contact">
+          <p><strong>Correo:</strong> contacto@cronicahuejutla.com</p>
+          <p><strong>Teléfono:</strong> +52 775 487 9831</p>
+          <p><strong>Ubicación:</strong> Huejutla de Reyes, Hidalgo</p>
+      </div>
     </div>
   </footer>
 

@@ -1,6 +1,6 @@
 <?php
-// PUNTO 3: Protección de sesión
-// Si el usuario no está logueado, lo manda al login inmediatamente
+// esto es para la protección de sesión
+//en dado caso que el usuario no está logueado, lo manda al login inmediatamente
 session_start();
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
@@ -19,7 +19,7 @@ if (!isset($_SESSION["id_usuario"])) {
  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2=family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
  
 <body>
@@ -64,37 +64,37 @@ if (!isset($_SESSION["id_usuario"])) {
  
   <div class="opciones-grid">
  
-    <a href="../admin/historiaadmin.html" class="opcion-card">
+    <a href="historiaadmin.php" class="opcion-card">
       <h3>Historia</h3>
       <p>Consulta y actualiza la información.</p>
     </a>
  
-    <a href="../admin/cronicasadmin.html" class="opcion-card">
+    <a href="cronicasadmin.php" class="opcion-card">
       <h3>Crónicas</h3>
       <p>Consulta y agrega.</p>
     </a>
  
-    <a href="../admin/galeriaadmin.html" class="opcion-card">
+    <a href="galeriaadmin.php" class="opcion-card">
       <h3>Galería</h3>
       <p>Administra imágenes y fotografías.</p>
     </a>
  
-    <a href="../admin/eventosadmin.html" class="opcion-card">
+    <a href="eventosadmin.php" class="opcion-card">
       <h3>Eventos</h3>
       <p>Agrega eventos importantes.</p>
     </a>
  
-    <a href="../admin/perfilesadmin.php" class="opcion-card">
+    <a href="perfilesadmin.php" class="opcion-card">
       <h3>Perfiles</h3>
       <p>Gestiona al equipo.</p>
     </a>
  
-    <a href="../admin/noticiasadmin.html" class="opcion-card">
+    <a href="noticiasadmin.php" class="opcion-card">
       <h3>Noticias</h3>
       <p>Publica noticias y comunicados.</p>
     </a>
  
-    <a href="../admin/entrevistasadmin.html" class="opcion-card">
+    <a href="entrevistasadmin.php" class="opcion-card">
       <h3>Entrevistas</h3>
       <p>Agrega contenido interesante.</p>
     </a>
