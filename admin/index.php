@@ -1,6 +1,4 @@
 <?php
-// esto es para la protección de sesión
-//en dado caso que el usuario no está logueado, lo manda al login inmediatamente
 session_start();
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
