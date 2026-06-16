@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crónicas</title>
 
-  
+
   <link rel="stylesheet" href="css/catalogo.css">
   <link rel="stylesheet" href="css/galeriaadmin.css">
   <link rel="stylesheet" href="css/vercronica.css">

@@ -13,13 +13,12 @@ if (!isset($_SESSION["id_usuario"])) {
   <title>Crónicas</title>
 
   <link rel="stylesheet" href="../css/catalogo.css">
-  
   <link rel="stylesheet" href="../css/galeriaadmin.css">
   <link rel="stylesheet" href="../css/vercronica.css">
 </head>
 <body>
 
- <nav id="navbar"> <div class="logo">
+ <nav id="sidebar"> <div class="logo">
     <img src="../img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
   </div>
 
@@ -85,8 +84,6 @@ if (!isset($_SESSION["id_usuario"])) {
 
     </div>
     </div>
-
-
 
     
  <div class="card admin-card">

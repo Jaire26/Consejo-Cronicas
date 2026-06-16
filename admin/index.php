@@ -41,7 +41,8 @@ if (!isset($_SESSION["id_usuario"])) {
         Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?>
       </span>
  
-      <a href="../conexion/cerrar_sesion.php" class="btn-login">Cerrar Sesión</a>
+       <a href="../conexion/cerrar_sesion.php" class="btn-login" onclick="return confirmarCerrarSesion()"> Cerrar Sesión
+</a>
  
     </div>
  
@@ -113,5 +114,10 @@ if (!isset($_SESSION["id_usuario"])) {
 </footer>
  
 <script src="../js/inicio.js"></script>
+<script>
+function confirmarCerrarSesion() {
+    return confirm("¿Está seguro de que desea cerrar sesión?");
+}
+</script>
 </body>
 </html>
