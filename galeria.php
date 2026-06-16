@@ -1,23 +1,24 @@
 <?php 
-// 1. Conectamos a la base de datos de MariaDB
+// conectamos a la base de datos de datos
 require_once("conexion/conexion.php"); 
 
-// 2. CORREGIDO: Cambiado 'galeria' por 'galerias' (en plural)
 $query = "SELECT * FROM galerias ORDER BY id_galeria DESC";
 $resultado = mysqli_query($conn, $query);
+
+$total_imagenes = mysqli_num_rows($resultado);
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Galería - Consejo de la Crónica</title>
-    <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/galeriaadmin.css"> 
-    <link rel="stylesheet" href="css/catalogo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería</title>
+  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/galeriaadmin.css"> 
 </head>
 <body>
 
-  <nav id="sidebar">
+ <nav id="sidebar">
     <div class="logo">
       <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
     </div>
@@ -32,39 +33,55 @@ $resultado = mysqli_query($conn, $query);
         <li><a href="noticias.php">Noticias</a></li>
         <li><a href="entrevistas.php">Entrevistas</a></li>
     </ul>
-  </nav>
+</nav>
 
-  <div class="main-content">
-    <section class="gallery-container">
-        <h2>Galería Fotográfica de Huejutla</h2>
+<div class="main-content">
+  <section class="feed-section">
+    
+    <div class="section-title">
+      <h2>Galería Fotográfica de Huejutla</h2>
+    </div>
 
-        <div class="gallery">
-            <?php 
-            // 3. El ciclo PHP genera cada imagen extrayendo los datos de tu BD
-            while($foto = mysqli_fetch_assoc($resultado)) { 
-            ?>
-                <!-- CORREGIDO: Se cambiaron los campos para que coincidan con tus columnas de SQLyog -->
-                <img 
-                    src="img/<?php echo htmlspecialchars($foto['nombre']); ?>.jpg" 
-                    alt="Imagen de la galería"
-                    data-title="<?php echo htmlspecialchars($foto['nombre']); ?>" 
-                    data-description="<?php echo htmlspecialchars($foto['descripcion']); ?>"
-                >
-            <?php 
-            } 
-            ?>
-        </div>
-    </section>
-  </div>
+    <div class="gallery">
+      
+      <?php 
+      if ($total_imagenes > 0) {
+          while($foto = mysqli_fetch_assoc($resultado)) { 
+          ?>
+              <img 
+                  src="img/<?php echo htmlspecialchars($foto['nombre']); ?>.jpg" 
+                  alt="Imagen de la galería"
+                  data-title="<?php echo htmlspecialchars($foto['nombre']); ?>" 
+                  data-description="<?php echo htmlspecialchars($foto['descripcion']); ?>"
+              >
+          <?php 
+          } 
+      } else {
+          for ($i = 1; $i <= 6; $i++) {
+          ?>
+              <img 
+                  src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600" 
+                  alt="Imagen de prueba"
+                  data-title="Imagen de Prueba <?php echo $i; ?>" 
+                  data-description="Esta es una imagen temporal porque tu tabla 'galerias' está vacía."
+              >
+          <?php
+          }
+      }
+      ?>
 
-  <div id="viewer" style="display: none;">
-      <span id="close-viewer">&times;</span>
-      <img id="viewer-img" src="" alt="Visor grande">
-      <h3 id="viewer-title"></h3>
-      <p id="viewer-description"></p>
-  </div>
+    </div>
+  </section>
+</div>
 
-  <footer class="footer-global">
+<div id="viewer" style="display: none;">
+    <span id="close-viewer">&times;</span>
+    <img id="viewer-img" src="" alt="Visor grande">
+    <h3 id="viewer-title"></h3>
+    <p id="viewer-description"></p>
+</div>
+
+<footer class="footer-global">
     <div class="footer-content">
       <h2>Crónica Huejutlense</h2>
       <div class="footer-contact">
@@ -73,8 +90,8 @@ $resultado = mysqli_query($conn, $query);
           <p><strong>Ubicación:</strong> Huejutla de Reyes, Hidalgo</p>
       </div>
     </div>
-  </footer>
+</footer>
 
-  <script src="js/galeria.js"></script>
+<script src="js/galeria.js"></script>
 </body>
 </html>
