@@ -13,11 +13,10 @@
     <div class="login-container">
 
         <h2>Iniciar Sesión</h2>
-
         <p>Accede al panel de administración</p>
 
         <img
-            src="img/logo.record.png"
+            src="img/LogoConsejo-removebg-preview.png"
             alt="Logo Crónica Huejutlense"
             class="login-logo">
 

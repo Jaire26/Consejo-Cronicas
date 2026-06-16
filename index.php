@@ -22,14 +22,15 @@
 
     <div class="menu-container">
       <ul class="menu">
+        <!-- Corregido: Todos los enlaces apuntan ahora a los archivos .php públicos en la raíz -->
         <li><a href="index.php">Inicio</a></li>
-        <li><a href="historia.html">Historia</a></li>
-        <li><a href="cronicas.html">Crónicas</a></li>
-        <li><a href="galeria.html">Galería</a></li>
-        <li><a href="eventos.html">Eventos</a></li>
-        <li><a href="perfiles.html">Perfiles</a></li>
-        <li><a href="noticias.html">Noticias</a></li>
-        <li><a href="entrevistas.html">Entrevistas</a></li>
+        <li><a href="historia.php">Historia</a></li>
+        <li><a href="cronicas.php">Crónicas</a></li>
+        <li><a href="galeria.php">Galería</a></li>
+        <li><a href="eventos.php">Eventos</a></li>
+        <li><a href="perfiles.php">Perfiles</a></li>
+        <li><a href="noticias.php">Noticias</a></li>
+        <li><a href="entrevistas.php">Entrevistas</a></li>
       </ul>
 
       <div class="menu-title">
@@ -78,7 +79,7 @@
       <div class="card-content">
         <h3>Visión</h3>
         <p>
-          Ser un referente en la construcción de la memoria histórica del municipio,
+          Ser un referente en la construcción de la memory histórica del municipio,
           reconocido por su compromiso con la cultura, la educación y la participación
           comunitaria, contribuyendo al fortalecimiento de la identidad y el patrimonio cultural.
         </p>
@@ -91,7 +92,7 @@
         <h3>Propósito</h3>
         <p>
           Promover la conservación, investigación, documentación y difusión de la historia,
-          cultura, tradiciones y patrimonio de Huejutla de Reyes, fortaleciendo el sentido
+          culture, tradiciones y patrimonio de Huejutla de Reyes, fortaleciendo el sentido
           de pertenencia e identidad de la comunidad.
         </p>
       </div>
