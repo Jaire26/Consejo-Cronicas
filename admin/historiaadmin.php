@@ -20,9 +20,6 @@ if (!isset($_SESSION["id_usuario"])) {
     <div class="logo">
       <img src="../img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
     </div>
-
-    <!-- Correción de .html a php para que fincione ya que edtaban en html para 
-     cargar en el server -->
     
     <ul class="menu">
       <li><a href="index.php">Inicio</a></li>
@@ -48,27 +45,49 @@ if (!isset($_SESSION["id_usuario"])) {
         <input type="text" placeholder="Buscar...">
       </div>
 
-      <div class="cards">
-        <div class="card">
-          <img src="https://images.unsplash.com/photo-1518991791750-749a6b7c6e0d?q=80&w=1200&auto=format&fit=crop">
-          <div class="card-content">
-            <h3>Orígenes</h3>
-            <p>Huejutla posee una gran riqueza cultural heredada de la Huasteca.</p>
-          </div>
+      <?php
+    include("../conexion/conexion.php");
+
+      $sql = "SELECT * FROM historias ORDER BY fecha_creacion DESC";
+      $resultado = mysqli_query($conn, $sql);
+      ?>
+<div class="cards">
+<?php while($historias = mysqli_fetch_assoc($resultado)) { ?>
+
+    <div class="card">
+
+        <img src="../img/<?php echo $historias['imagen']; ?>" alt="Historia">
+
+        <div class="card-content">
+
+            <h3>
+                <?php echo htmlspecialchars($historias['titulo']); ?>
+            </h3>
+
+            <p>
+                <?php echo htmlspecialchars($historias['descripcion']); ?>
+            </p>
+
+            <small>
+                   Publicado el <?php echo date("d/m/Y", strtotime($historias['fecha_creacion'])); ?>
+            </small>
+
+            <small>
+                <?php echo $historias['fecha_actualizacion']; ?>
+            </small>
+
         </div>
 
-        <div class="card">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop">
-          <div class="card-content">
-            <h3>Tradiciones</h3>
-            <p>El Xantolo representa una de las celebrations más importantes.</p>
-          </div>
-        </div>
+    </div>
+
+    </div>
+
+<?php } ?>
         <div class="card admin-card">
           <div class="card-content">
               <h3>Agregar Contenido</h3>
               <p>Administre la historia.</p>
-              <a href="../subir/subirhis.html" class="btn-admin">Agregar</a>
+              <a href="subirhis.php" class="btn-admin">Agregar</a>
           </div>
         </div>
       </div>

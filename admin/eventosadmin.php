@@ -66,7 +66,7 @@ if (!isset($_SESSION["id_usuario"])) {
         <div class="card-content">
             <h3>Agregar Contenido</h3>
             <p>Administre la galería.</p>
-            <a href="../subir/subirevento.html" class="btn-admin">Agregar</a>
+            <a href="subirevento.php" class="btn-admin">Agregar</a>
         </div>
       </div>
     </div>

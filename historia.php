@@ -1,3 +1,11 @@
+<?php
+include("conexion/conexion.php");
+
+$sql = "SELECT * FROM historias ORDER BY fecha_creacion DESC";
+$resultado = mysqli_query($conn, $sql);
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -41,23 +49,35 @@
       </div>
 
       <div class="cards">
-        <div class="card">
-          <img src="img/danzas.jpeg" alt="Danzas">
-          <div class="card-content">
-            <h3>Titulo de contenido</h3>
-            <p>Descripción de contenido.</p>
-          </div>
+
+<?php while($historia = mysqli_fetch_assoc($resultado)) { ?>
+
+    <div class="card">
+
+        <img src="img/<?php echo $historia['imagen']; ?>" alt="Historia">
+
+        <div class="card-content">
+
+            <h3>
+                <?php echo htmlspecialchars($historia['titulo']); ?>
+            </h3>
+
+            <p>
+                <?php echo htmlspecialchars($historia['descripcion']); ?>
+            </p>
+
+            <small>
+                Publicado el
+                <?php echo date("d/m/Y", strtotime($historia['fecha_creacion'])); ?>
+            </small>
+
         </div>
 
-        <div class="card">
-          <img src="img/reloj.webp" alt="Reloj">
-          <div class="card-content">
-            <h3>Titulo de contenido</h3>
-            <p>Descripción de contenido.</p>
-          </div>
-        </div>
-      </div>
+    </div>
 
+<?php } ?>
+
+</div>
     </section>
   </div>
   

@@ -34,14 +34,14 @@ if (!isset($_SESSION["id_usuario"])) {
     </div>
  
     <div class="nav-actions">
+       <span class="usuario-sesion">
+        Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?>
+      </span>
+ 
  
       <div class="search-box">
         <input type="text" placeholder="Buscar...">
       </div>
- 
-      <span class="usuario-sesion">
-        Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?>
-      </span>
  
        <a href="../conexion/cerrar_sesion.php" class="btn-login" onclick="return confirmarCerrarSesion()"> Cerrar Sesión
 </a>
@@ -60,7 +60,6 @@ if (!isset($_SESSION["id_usuario"])) {
 </header>
  
 <section class="panel-opciones">
- 
   <h2>¿Qué desea visitar hoy?</h2>
  
   <div class="opciones-grid">

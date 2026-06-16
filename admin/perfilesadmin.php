@@ -94,7 +94,6 @@ $usuarios = mysqli_query($conn, "
     <li><a href="perfilesadmin.php">Perfiles</a></li>
     <li><a href="noticiasadmin.php">Noticias</a></li>
     <li><a href="entrevistasadmin.php">Entrevistas</a></li>
-    <li><a href="../conexion/cerrar_sesion.php">Cerrar Sesión</a></li>
   </ul>
 </nav>
  
@@ -225,7 +224,15 @@ $usuarios = mysqli_query($conn, "
  
   </section>
  
-  <footer class="footer-global">
+</div>
+ 
+<script>
+function toggleFormulario() {
+    const form = document.getElementById("form-registro");
+    form.style.display = form.style.display === "none" ? "block" : "none";
+}
+</script>
+<footer class="footer-global">
     <div class="footer-content">
       <h2>Crónica Huejutlense</h2>
       <div class="footer-contact">
@@ -235,15 +242,6 @@ $usuarios = mysqli_query($conn, "
       </div>
     </div>
   </footer>
- 
-</div>
- 
-<script>
-function toggleFormulario() {
-    const form = document.getElementById("form-registro");
-    form.style.display = form.style.display === "none" ? "block" : "none";
-}
-</script>
  
 </body>
 </html>
