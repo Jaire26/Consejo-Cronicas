@@ -1,10 +1,17 @@
+<?php
+// 1. Incluimos tu archivo de conexión (ajusta la ruta si en la raíz cambia, por ejemplo a "conexion/conexion.php")
+include("conexion/conexion.php");
+
+// 2. Consultamos las crónicas para el público
+$sql = "SELECT * FROM cronicas ORDER BY id_cronica DESC"; 
+$resultado = mysqli_query($conn, $sql);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crónicas</title>
-
 
   <link rel="stylesheet" href="css/catalogo.css">
   <link rel="stylesheet" href="css/galeriaadmin.css">
@@ -14,7 +21,6 @@
 
  <nav id="sidebar">
     <div class="logo">
-     
       <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
     </div>
 
@@ -44,31 +50,42 @@
     </div>
 
     <div class="cards">
-      <div class="card cronica-card">
-          <img src="https://images.unsplash.com/photo-1524492449090-1abe1e3a209c?q=80&w=1200&auto=format&fit=crop" alt="Imagen de Crónica">
+    <?php 
+    // 3. Ciclo para mostrar las crónicas de forma dinámica
+    if (mysqli_num_rows($resultado) > 0) {
+        while($cronicas = mysqli_fetch_assoc($resultado)) { 
+    ?>
+          <div class="card cronica-card">
+              <img src="img/<?php echo $cronicas['imagen']; ?>" alt="<?php echo htmlspecialchars($cronicas['titulo']); ?>">
 
-          <div class="card-content">
-              <span class="cronica-fecha">
-                  24 Mayo 2026
-              </span>
+              <div class="card-content">
+                  <span class="cronica-fecha">
+                      <?php echo date("d M Y", strtotime($cronicas['fecha'])); ?>
+                  </span>
 
-              <h3>
-                  Historias del Centro
-              </h3>
+                  <h3>
+                      <?php echo htmlspecialchars($cronicas['titulo']); ?>
+                  </h3>
 
-              <h4>
-                  Por: Consejo Huejutlense
-              </h4>
+                  <h4>
+                      Por: <?php echo htmlspecialchars($cronicas['autor']); ?>
+                  </h4>
 
-              <p class="cronica-resumen">
-                  Recuerdos y relatos sobre el antiguo Huejutla y las tradiciones que marcaron generaciones enteras.
-              </p>
+                  <p class="cronica-resumen">
+                      <?php echo htmlspecialchars($cronicas['resumen']); ?>
+                  </p>
 
-              <button class="btn-cronica" onclick="mostrarCronica(this)">
-                 Leer Crónica
-              </button>
+                  <button class="btn-cronica" onclick="mostrarCronica(this)">
+                     Leer Crónica
+                  </button>
+              </div>
           </div>
-      </div>
+    <?php 
+        } 
+    } else {
+        echo "<p style='grid-column: 1/-1; text-align: center; color: #666;'>Próximamente más crónicas de nuestra región.</p>";
+    }
+    ?>
     </div>
   </section>
 
@@ -79,23 +96,13 @@
     <h2>Crónica Huejutlense</h2>
 
     <div class="footer-contact">
-      <p>
-        <strong>Correo:</strong>
-        contacto@cronicahuejutla.com
-      </p>
-
-      <p>
-        <strong>Teléfono:</strong>
-        +52 775 487 9831
-      </p>
-
-      <p>
-        <strong>Ubicación:</strong>
-        Huejutla de Reyes, Hidalgo
-      </p>
+      <p><strong>Correo:</strong> contacto@cronicahuejutla.com</p>
+      <p><strong>Teléfono:</strong> +52 775 487 9831</p>
+      <p><strong>Ubicación:</strong> Huejutla de Reyes, Hidalgo</p>
     </div>
   </div> 
 </footer>
+
   <script src="js/leercronica.js"></script>
 </body>
 </html>
