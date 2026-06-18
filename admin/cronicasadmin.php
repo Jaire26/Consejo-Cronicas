@@ -50,13 +50,20 @@ if (!isset($_SESSION["id_usuario"])) {
 
     <?php
     include("../conexion/conexion.php");
-    // Consultamos la tabla cronicas (Cámbiale el 'id' u orden si lo requieres por fecha)
     $sql = "SELECT * FROM cronicas ORDER BY id_cronica DESC"; 
     $resultado = mysqli_query($conn, $sql);
     ?>
 
     <div class="cards">
-    <?php while($cronicas = mysqli_fetch_assoc($resultado)) { ?>
+    <?php 
+    // Traductor de meses para que no salgan en inglés
+    $meses_es = array("Jan" => "Ene", "Feb" => "Feb", "Mar" => "Mar", "Apr" => "Abr", "May" => "May", "Jun" => "Jun", "Jul" => "Jul", "Aug" => "Ago", "Sep" => "Sep", "Oct" => "Oct", "Nov" => "Nov", "Dec" => "Dic");
+
+    while($cronicas = mysqli_fetch_assoc($resultado)) { 
+        $fecha_en = date("d M Y", strtotime($cronicas['fecha']));
+        $mes_en = date("M", strtotime($cronicas['fecha']));
+        $fecha_es = str_replace($mes_en, $meses_es[$mes_en], $fecha_en);
+    ?>
 
         <div class="card cronica-card">
 
@@ -65,7 +72,7 @@ if (!isset($_SESSION["id_usuario"])) {
             <div class="card-content">
 
                 <span class="cronica-fecha">
-                    <?php echo date("d M Y", strtotime($cronicas['fecha'])); ?>
+                    <?php echo $fecha_es; ?>
                 </span>
 
                 <h3>
@@ -80,8 +87,14 @@ if (!isset($_SESSION["id_usuario"])) {
                     <?php echo htmlspecialchars($cronicas['resumen']); ?>
                 </p>
 
-                <button class="btn-cronica" onclick="mostrarCronica(this)">
-                   Leer Crónica
+                <!-- El JS ya podrá leer correctamente los datos de cada crónica -->
+                <button class="btn-cronica" 
+                        onclick="mostrarCronica(this)"
+                        data-titulo="<?php echo htmlspecialchars($cronicas['titulo']); ?>"
+                        data-autor="<?php echo htmlspecialchars($cronicas['autor']); ?>"
+                        data-fecha="<?php echo $fecha_es; ?>"
+                        data-contenido="<?php echo htmlspecialchars($cronicas['contenido']); ?>">
+                    Leer Crónica
                 </button>
             </div>
 
@@ -89,6 +102,7 @@ if (!isset($_SESSION["id_usuario"])) {
 
     <?php } ?>
 
+        <!-- La tarjeta de Agregar Contenido la dejamos aquí al final para que los administradores la usen -->
         <div class="card admin-card">
           <div class="card-content">
               <h3>Agregar Contenido</h3>
@@ -100,7 +114,8 @@ if (!isset($_SESSION["id_usuario"])) {
           </div>
         </div>
 
-    </div> </section>
+    </div> 
+  </section>
 
 </div>
 
