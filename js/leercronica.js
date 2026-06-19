@@ -1,32 +1,3 @@
-const cronicas = [
-
-{
-    id: 1,
-
-    titulo: "Historias del Centro",
-
-    autor: "Consejo Huejutlense",
-
-    fecha: "24 Mayo 2026",
-
-    imagen: "https://images.unsplash.com/photo-1524492449090-1abe1e3a209c?q=80&w=1200&auto=format&fit=crop",
-
-    resumen: "Recuerdos y relatos sobre el antiguo Huejutla.",
-
-    contenido: `
-    
-    Esta crónica relata los acontecimientos más importantes
-    del antiguo Huejutla.
-
-    Sus tradiciones, personajes y cultura forman parte
-    de la memoria colectiva huasteca.
-
-    `
-}
-
-];
-
-
 
 const contenedor = document.querySelector(".cards");
 
