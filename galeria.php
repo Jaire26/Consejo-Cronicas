@@ -40,8 +40,6 @@ $total_imagenes = mysqli_num_rows($resultado);
     </div>
 
     <div class="gallery">
-      <img src="img/xantolo huejutla.jpg" data-title="Xantolo en Huejutla" data-description="Celebración tradicional llena de cultura y color.">
-
       <?php 
       if ($total_imagenes > 0) {
           while($foto = mysqli_fetch_assoc($resultado)) { 
