@@ -47,9 +47,7 @@ $resultado = mysqli_query($conn, $query);
   </div>
 
   <div class="gallery">
-    <img src="../img/xantolo huejutla.jpg" data-title="Xantolo en Huejutla" data-description="Celebración tradicional llena de cultura y color.">
-    <img src="../img/foto2.jpg" data-title="Tradiciones Huastecas" data-description="Fotografías históricas de las festividades regionales.">
-
+  
     <?php while($foto = mysqli_fetch_assoc($resultado)) { ?>
         <div class="gallery-item-container" style="position:relative; display:inline-block;">
             <img 
