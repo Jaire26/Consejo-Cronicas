@@ -1,93 +1,34 @@
-const cronicas = [
+function mostrarCronica(elemento) {
+    // 1. Si el elemento es un número o texto (Caso de la tarjeta estática)
+    if (typeof elemento === 'number' || typeof elemento === 'string') {
+        const contenido = document.getElementById(`cronica-${elemento}`);
+        if (contenido) {
+            contenido.classList.toggle("mostrar");
+        }
+        return;
+    }
 
-{
-    id: 1,
+    // 2. Si el elemento es el botón "this" (Caso de las tarjetas de la Base de Datos)
+    const cardContent = elemento.parentElement;
+    let contenidoDiv = cardContent.querySelector(".contenido-cronica");
 
-    titulo: "Historias del Centro",
-
-    autor: "Consejo Huejutlense",
-
-    fecha: "24 Mayo 2026",
-
-    imagen: "https://images.unsplash.com/photo-1524492449090-1abe1e3a209c?q=80&w=1200&auto=format&fit=crop",
-
-    resumen: "Recuerdos y relatos sobre el antiguo Huejutla.",
-
-    contenido: `
-    
-    Esta crónica relata los acontecimientos más importantes
-    del antiguo Huejutla.
-
-    Sus tradiciones, personajes y cultura forman parte
-    de la memoria colectiva huasteca.
-
-    `
-}
-
-];
-
-
-
-const contenedor = document.querySelector(".cards");
-
-cronicas.forEach(cronica => {
-
-    contenedor.innerHTML += `
-
-    <div class="card cronica-card">
-
-        <img src="${cronica.imagen}">
-
-        <div class="card-content">
-
-            <span class="cronica-fecha">
-                ${cronica.fecha}
-            </span>
-
-            <h3>
-                ${cronica.titulo}
-            </h3>
-
-            <h4>
-                Por: ${cronica.autor}
-            </h4>
-
-            <p class="cronica-resumen">
-                ${cronica.resumen}
-            </p>
-
-            <button 
-                class="btn-cronica"
-                onclick="mostrarCronica(${cronica.id})"
-            >
-                Leer Crónica
-            </button>
-
-            <div 
-                class="contenido-cronica"
-                id="cronica-${cronica.id}"
-            >
-
-                <p>
-                    ${cronica.contenido}
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    `;
-});
-
-
-
-function mostrarCronica(id){
-
-    const contenido =
-    document.getElementById(`cronica-${id}`);
-
-    contenido.classList.toggle("mostrar");
-
+    // Si no existe el contenedor del texto, lo creamos e inyectamos el contenido
+    if (!contenidoDiv) {
+        contenidoDiv = document.createElement("div");
+        contenidoDiv.className = "contenido-cronica";
+        
+        // Jalamos el texto que guardaste en el 'data-contenido' de PHP
+        const textoLargo = elemento.getAttribute("data-contenido");
+        
+        contenidoDiv.innerHTML = `<p>${textoLargo}</p>`;
+        cardContent.appendChild(contenidoDiv);
+        
+        // Le damos un momento para que la animación de CSS funcione bien
+        setTimeout(() => {
+            contenidoDiv.classList.add("mostrar");
+        }, 10);
+    } else {
+        // Si ya existía, solo lo esconde o lo muestra
+        contenidoDiv.classList.toggle("mostrar");
+    }
 }

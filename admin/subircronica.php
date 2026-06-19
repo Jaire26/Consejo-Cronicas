@@ -4,6 +4,39 @@ if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
+
+include("../conexion/conexion.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $titulo = $_POST["titulo"];
+    $autor = $_POST["autor"];
+    $fecha = $_POST["fecha"];
+    $resumen = $_POST["resumen"];
+    $contenido = $_POST["contenido"];
+
+    // Procesar la imagen con tu misma estructura exacta
+    $nombreImagen = time() . "_" . $_FILES["imagen"]["name"];
+    $rutaDestino = "../img/" . $nombreImagen;
+
+    if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $rutaDestino)) {
+
+        // Asegúrate de que tu tabla 'cronicas' tenga estas columnas
+       $sql = "INSERT INTO cronicas 
+                (titulo, autor, fecha, resumen, contenido, imagen) 
+                VALUES 
+            ('$titulo', '$autor', '$fecha', '$resumen', '$contenido', '$nombreImagen')";
+        
+        if (mysqli_query($conn, $sql)) {
+            header("Location: cronicasadmin.php");
+            exit();
+        } else {
+            echo "Error al guardar: " . mysqli_error($conn);
+        }
+    } else {
+        echo "Error al subir la imagen";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -4,6 +4,11 @@ if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
+include("../conexion/conexion.php");
+
+// Consultamos de la tabla renombrada 'galeria'
+$query = "SELECT * FROM galeria ORDER BY id_galeria DESC";
+$resultado = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +16,6 @@ if (!isset($_SESSION["id_usuario"])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galería</title>
-
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
   <link rel="stylesheet" href="../css/verfoto.css">
@@ -19,7 +23,6 @@ if (!isset($_SESSION["id_usuario"])) {
 <body>
 
  <nav id="sidebar">
-
     <div class="logo">
       <img src="../img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
     </div>
@@ -33,28 +36,29 @@ if (!isset($_SESSION["id_usuario"])) {
     <li><a href="noticiasadmin.php">Noticias</a></li>
     <li><a href="entrevistasadmin.php">Entrevistas</a></li>
   </ul>
-
 </nav>
-<div class="main-content">
 
+<div class="main-content">
   <section id="galeria">
 
   <div class="section-title">
-    <h2>Galería Cultural</h2>
+    <h2>Galería Cultural (Admin)</h2>
     <p>Fotografías y recuerdos de Huejutla</p>
   </div>
 
   <div class="gallery">
-    <img 
-      src="xantolo huejutla.jpg" 
-      data-title="Xantolo en Huejutla"
-      data-description="Celebración tradicional llena de cultura y color.">
-
-    <img 
-      src="foto2.jpg"
-      data-title="Tradiciones Huastecas"
-      data-description="Fotografías históricas de las festividades regionales.">
+  
+    <?php while($foto = mysqli_fetch_assoc($resultado)) { ?>
+        <div class="gallery-item-container" style="position:relative; display:inline-block;">
+            <img 
+              src="../img/<?php echo htmlspecialchars($foto['ruta_imagen']); ?>" 
+              data-title="<?php echo htmlspecialchars($foto['titulo']); ?>" 
+              data-description="<?php echo htmlspecialchars($foto['descripcion']); ?>"
+            >
+        </div>
+    <?php } ?>
   </div>
+
   <div class="image-viewer" id="viewer">
     <span id="close-viewer">&times;</span>
     <div class="viewer-content">
@@ -63,15 +67,12 @@ if (!isset($_SESSION["id_usuario"])) {
         <p id="viewer-description"></p>
     </div>
   </div>
+
   <div class="card admin-card">
     <div class="card-content">
         <h3>Agregar Contenido</h3>
         <p>Administre la galeria.</p>
-<<<<<<< HEAD
         <a href="subirfoto.php" class="btn-admin">Agregar</a>
-=======
-        <a href="../subir/subirfoto.php" class="btn-admin">Agregar</a>
->>>>>>> e722deeb0d7cd6d95d8cd11e3c5ebeaa625d58f7
     </div>
   </div>
 

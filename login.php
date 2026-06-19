@@ -22,12 +22,12 @@
 
         <?php if (isset($_GET['error'])): ?>
             <div style="color: #ff3333; background-color: #ffe6e6; border: 1px solid #ffb3b3; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px; text-align: center;">
-                🔑 <strong>¡Error!</strong> 
+                <strong>¡Error!</strong> 
                 <?php 
                     if ($_GET['error'] == 'pass_incorrecto') {
                         echo "La contraseña introducida es incorrecta.";
                     } elseif ($_GET['error'] == 'user_no_encontrado') {
-                        echo "El correo electrónico no está registrado o el usuario está inactivo.";
+                        echo "El correo electrónico no está registrado";
                     } else {
                         echo "Ocurrió un error al intentar iniciar sesión.";
                     }
