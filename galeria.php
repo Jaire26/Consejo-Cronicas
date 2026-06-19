@@ -14,6 +14,7 @@ $total_imagenes = mysqli_num_rows($resultado);
   <title>Galería</title>
   <link rel="stylesheet" href="css/catalogo.css">
   <link rel="stylesheet" href="css/galeriaadmin.css"> 
+  <link rel="stylesheet" href="css/verfoto.css"> 
 </head>
 <body>
 
@@ -53,17 +54,18 @@ $total_imagenes = mysqli_num_rows($resultado);
           <?php 
           } 
       } 
-      
       ?>
     </div>
   </section>
 </div>
 
-<div id="viewer" style="display: none;">
+<div class="image-viewer" id="viewer">
     <span id="close-viewer">&times;</span>
-    <img id="viewer-img" src="" alt="Visor grande">
-    <h3 id="viewer-title"></h3>
-    <p id="viewer-description"></p>
+    <div class="viewer-content">
+        <img id="viewer-img" src="" alt="Visor grande">
+        <h2 id="viewer-title"></h2>
+        <p id="viewer-description"></p>
+    </div>
 </div>
 
 <footer class="footer-global">
