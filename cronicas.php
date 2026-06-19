@@ -30,7 +30,6 @@ $resultado = mysqli_query($conn, $sql);
         <li><a href="cronicas.php">Crónicas</a></li>
         <li><a href="galeria.php">Galería</a></li>
         <li><a href="eventos.php">Eventos</a></li>
-        <li><a href="perfiles.php">Perfiles</a></li>
         <li><a href="noticias.php">Noticias</a></li>
         <li><a href="entrevistas.php">Entrevistas</a></li>
     </ul>
