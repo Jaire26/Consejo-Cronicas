@@ -5,35 +5,41 @@ if (!isset($_SESSION["id_usuario"])) {
     exit();
 }
 
-
 include("../conexion/conexion.php"); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = mysqli_real_escape_string($conn, $_POST['titulo']);
     $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
     
-    $nombre_foto = $_FILES['imagen']['name'];
-    $ruta_temporal = $_FILES['imagen']['tmp_name'];
-    
-   
-    $extension = pathinfo($nombre_foto, PATHINFO_EXTENSION);
-    $nuevo_nombre_foto = time() . "_" . uniqid() . "." . $extension;
-    
-   
-    $carpeta_destino = "../img/" . $nuevo_nombre_foto;
-    
-    if (move_uploaded_file($ruta_temporal, $carpeta_destino)) {
+    // Validamos que el archivo se haya recibido bien
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+        $nombre_foto = $_FILES['imagen']['name'];
+        $ruta_temporal = $_FILES['imagen']['tmp_name'];
         
-        $sql = "INSERT INTO galeria (titulo, descripcion, ruta_imagen) VALUES ('$titulo', '$descripcion', '$nuevo_nombre_foto')";
+        $extension = pathinfo($nombre_foto, PATHINFO_EXTENSION);
+        $nuevo_nombre_foto = time() . "_" . uniqid() . "." . $extension;
         
-        if (mysqli_query($conn, $sql)) {
-            echo "<script>alert('¡Fotografía subida con éxito!'); window.location='galeriaadmin.php';</script>";
-            exit();
+        $carpeta_destino = "../img/" . $nuevo_nombre_foto;
+        
+        if (move_uploaded_file($ruta_temporal, $carpeta_destino)) {
+            
+            // Esta consulta funcionará perfectamente una vez ejecutes el comando del Paso 1
+            $sql = "INSERT INTO galeria (titulo, descripcion, ruta_imagen) VALUES ('$titulo', '$descripcion', '$nuevo_nombre_foto')";
+            
+            if (mysqli_query($conn, $sql)) {
+                echo "<script>alert('¡Fotografía subida con éxito!'); window.location='galeriaadmin.php';</script>";
+                exit();
+            } else {
+                // Si la base de datos rechaza la consulta, esto te dirá el porqué exacto
+                die("Error en la Base de Datos: " . mysqli_error($conn));
+            }
         } else {
-            echo "<script>alert('Error al guardar en BD: " . mysqli_error($conn) . "');</script>";
+            echo "<script>alert('Error: El servidor no te permitió guardar el archivo en la carpeta ../img/. Verifica los permisos.'); window.location='subirfoto.php';</script>";
+            exit();
         }
     } else {
-        echo "<script>alert('Error al mover el archivo físico al servidor.');</script>";
+        echo "<script>alert('Error: No se seleccionó ninguna imagen o el archivo supera el límite del servidor.'); window.location='subirfoto.php';</script>";
+        exit();
     }
 }
 ?>
