@@ -17,6 +17,7 @@ $resultado = mysqli_query($conn, $query);
   <title>Eventos - Admin</title>
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/eventos.css">
+    <link rel="stylesheet" href="../css/galeriaadmin.css">
       
 </head>
 <body>
