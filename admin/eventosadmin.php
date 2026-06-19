@@ -42,16 +42,6 @@ $resultado = mysqli_query($conn, $query);
       <h2>Panel de Eventos</h2>
       <p>Administra las novedades culturales</p>
     </div>
-
-    <div class="feed-container">
-      
-      <div class="card admin-card">
-        <div class="card-content">
-            <h3>Agregar Contenido</h3>
-            <p>Administre los eventos de la plataforma.</p>
-            <a href="subirevento.php" class="btn-admin">Agregar</a>
-        </div>
-      </div>
       <div class="cards">
 
       <?php while($evento = mysqli_fetch_assoc($resultado)) { ?>
@@ -67,6 +57,16 @@ $resultado = mysqli_query($conn, $query);
             </div>
           </div>
       <?php } ?>
+
+      <div class="feed-container">
+      
+      <div class="card admin-card">
+        <div class="card-content">
+            <h3>Agregar Contenido</h3>
+            <p>Administre los eventos de la plataforma.</p>
+            <a href="subirevento.php" class="btn-admin">Agregar</a>
+        </div>
+      </div>
 
     </div>
   </section>
