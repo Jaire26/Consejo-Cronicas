@@ -72,6 +72,15 @@ $resultado = mysqli_query($conn, $query);
 
     </div>
   </section>
+
+
+  <div class="card admin-card">
+        <div class="card-content">
+            <h3>Agregar Contenido</h3>
+            <p>Administre los eventos de la plataforma.</p>
+            <a href="subirevento.php" class="btn-admin">Agregar</a>
+        </div>
+      </div>
 </div>
 
 <div class="image-viewer" id="viewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">
@@ -79,14 +88,6 @@ $resultado = mysqli_query($conn, $query);
     <img id="viewer-img" src="" alt="Imagen Ampliada" style="max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
 </div>
 
-
-<div class="card admin-card">
-        <div class="card-content">
-            <h3>Agregar Contenido</h3>
-            <p>Administre los eventos de la plataforma.</p>
-            <a href="subirevento.php" class="btn-admin">Agregar</a>
-        </div>
-      </div>
 <footer class="footer-global">
     <div class="footer-content">
       <h2>Crónica Huejutlense</h2>
