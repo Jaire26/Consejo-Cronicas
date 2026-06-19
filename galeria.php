@@ -1,10 +1,9 @@
 <?php 
-// conectamos a la base de datos de datos
+// Conexión a la base de datos
 require_once("conexion/conexion.php"); 
 
-$query = "SELECT * FROM galerias ORDER BY id_galeria DESC";
+$query = "SELECT * FROM galeria ORDER BY id_galeria DESC";
 $resultado = mysqli_query($conn, $query);
-
 $total_imagenes = mysqli_num_rows($resultado);
 ?>
 <!DOCTYPE html>
@@ -22,7 +21,6 @@ $total_imagenes = mysqli_num_rows($resultado);
     <div class="logo">
       <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
     </div>
-
     <ul class="menu">
         <li><a href="index.php">Inicio</a></li>
         <li><a href="historia.php">Historia</a></li>
@@ -37,39 +35,28 @@ $total_imagenes = mysqli_num_rows($resultado);
 
 <div class="main-content">
   <section class="feed-section">
-    
     <div class="section-title">
       <h2>Galería Fotográfica de Huejutla</h2>
     </div>
 
     <div class="gallery">
-      
+      <img src="img/xantolo huejutla.jpg" data-title="Xantolo en Huejutla" data-description="Celebración tradicional llena de cultura y color.">
+
       <?php 
       if ($total_imagenes > 0) {
           while($foto = mysqli_fetch_assoc($resultado)) { 
           ?>
               <img 
-                  src="img/<?php echo htmlspecialchars($foto['nombre']); ?>.jpg" 
+                  src="img/<?php echo htmlspecialchars($foto['ruta_imagen']); ?>" 
                   alt="Imagen de la galería"
-                  data-title="<?php echo htmlspecialchars($foto['nombre']); ?>" 
+                  data-title="<?php echo htmlspecialchars($foto['titulo']); ?>" 
                   data-description="<?php echo htmlspecialchars($foto['descripcion']); ?>"
               >
           <?php 
           } 
-      } else {
-          for ($i = 1; $i <= 6; $i++) {
-          ?>
-              <img 
-                  src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600" 
-                  alt="Imagen de prueba"
-                  data-title="Imagen de Prueba <?php echo $i; ?>" 
-                  data-description="Esta es una imagen temporal porque tu tabla 'galerias' está vacía."
-              >
-          <?php
-          }
-      }
+      } 
+      
       ?>
-
     </div>
   </section>
 </div>
