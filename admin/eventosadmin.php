@@ -16,7 +16,7 @@ $resultado = mysqli_query($conn, $query);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eventos - Admin</title>
   <link rel="stylesheet" href="../css/catalogo.css">
-  <link rel="stylesheet" href="../css/galeriaadmin.css">
+  <link rel="stylesheet" href="../css/eventos.css">
       
 </head>
 <body>
@@ -43,14 +43,6 @@ $resultado = mysqli_query($conn, $query);
     <div class="section-title">
       <h2>Panel de Eventos</h2>
       <p>Administra las novedades culturales</p>
-    </div>
-
-    <div class="card admin-card" >
-        <div class="card-content">
-            <h3>Agregar Contenido</h3>
-            <p>Administre los eventos de la plataforma.</p>
-            <a href="subirevento.php" class="btn-admin">Agregar</a>
-        </div>
     </div>
 
     <div class="feed-container">
