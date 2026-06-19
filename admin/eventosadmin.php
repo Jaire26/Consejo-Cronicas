@@ -17,44 +17,7 @@ $resultado = mysqli_query($conn, $query);
   <title>Eventos - Admin</title>
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
-  
-  <style>
-    /* Forzamos que la estructura feed-card se alinee estrictamente en horizontal */
-    .feed-card {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: flex-start !important;
-      gap: 25px !important;
-      margin-bottom: 30px !important;
-      background: transparent !important;
-      width: 100% !important;
-    }
-    
-    .feed-image {
-      flex: 0 0 40% !important; /* La foto mantiene un tamaño proporcional a la izquierda */
-      max-width: 400px !important;
-    }
-
-    .feed-image img {
-      width: 100% !important;
-      height: auto !important;
-      display: block !important;
-      border-radius: 12px !important;
-    }
-
-    .feed-info {
-      flex: 1 !important; /* El texto se expande ocupando el lado derecho */
-      display: flex !important;
-      flex-direction: column !important;
-    }
-
-    /* Estilos estéticos opcionales para asemejar a tu diseño base */
-    .feed-info h3 {
-      font-size: 26px !important;
-      margin: 5px 0 10px 0 !important;
-      font-family: 'Playfair Display', serif !important;
-    }
-  </style>
+      
 </head>
 <body>
 
