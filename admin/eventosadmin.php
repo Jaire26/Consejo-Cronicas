@@ -52,13 +52,14 @@ $resultado = mysqli_query($conn, $query);
             <a href="subirevento.php" class="btn-admin">Agregar</a>
         </div>
       </div>
+      <div class="cards">
 
       <?php while($evento = mysqli_fetch_assoc($resultado)) { ?>
-          <div class="feed-card">
-            <div class="feed-image">
+          
+            <div class="card">
               <img src="../img/<?php echo htmlspecialchars($evento['imagen']); ?>" alt="Evento">
             </div>
-            <div class="feed-info">
+            <div class="card-content">
               <span class="tag tag-evento"><?php echo date("d M Y", strtotime($evento['fecha'])); ?></span>
               <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
               <p><strong>Lugar:</strong> <?php echo htmlspecialchars($evento['lugar']); ?></p>
