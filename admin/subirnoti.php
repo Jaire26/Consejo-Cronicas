@@ -1,10 +1,51 @@
 <?php
 session_start();
+
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
+
+include("../conexion/conexion.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $titulo = mysqli_real_escape_string($conn, $_POST["titulo"]);
+    $contenido = mysqli_real_escape_string($conn, $_POST["descripcion"]);
+    $id_usuario = $_SESSION["id_usuario"];
+
+    $imagen = "";
+
+    if(isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0){
+
+        $carpeta = "../img/noticias/";
+
+        if(!file_exists($carpeta)){
+            mkdir($carpeta, 0777, true);
+        }
+
+        $imagen = time() . "_" . basename($_FILES["imagen"]["name"]);
+
+        move_uploaded_file(
+            $_FILES["imagen"]["tmp_name"],
+            $carpeta . $imagen
+        );
+    }
+
+    $sql = "INSERT INTO noticias
+            (titulo, contenido, imagen, id_usuario)
+            VALUES
+            ('$titulo', '$contenido', '$imagen', '$id_usuario')";
+
+    if(mysqli_query($conn, $sql)){
+        header("Location: noticiasadmin.php");
+        exit();
+    }else{
+        echo "Error al guardar: " . mysqli_error($conn);
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,12 +74,12 @@ if (!isset($_SESSION["id_usuario"])) {
 
             <div class="input-group">
                 <label>Título</label>
-                <input type="text" name="titulo" required placeholder="Ej. Inauguración del Evento Cultural 2026">
+                <input type="text" name="titulo" required>
             </div>
 
             <div class="input-group">
                 <label>Descripción</label>
-                <textarea name="descripcion" required placeholder="Escribe el cuerpo de la noticia aquí..."></textarea>
+                <textarea name="descripcion" required></textarea>
             </div>
 
             <div class="input-group">
