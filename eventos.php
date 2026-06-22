@@ -27,7 +27,6 @@ $resultado = mysqli_query($conn, $query);
         <li><a href="cronicasadmin.php">Crónicas</a></li>
         <li><a href="galeriaadmin.php">Galería</a></li>
         <li><a href="eventosadmin.php">Eventos</a></li>
-        <li><a href="perfilesadmin.php">Perfiles</a></li>
         <li><a href="noticiasadmin.php">Noticias</a></li>
         <li><a href="entrevistasadmin.php">Entrevistas</a></li>
     </ul>
