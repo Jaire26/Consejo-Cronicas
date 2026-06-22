@@ -23,12 +23,12 @@ $resultado = mysqli_query($conn, $query);
     </div>
     <ul class="menu">
         <li><a href="index.php">Inicio</a></li>
-        <li><a href="historiaadmin.php">Historia</a></li>
-        <li><a href="cronicasadmin.php">Crónicas</a></li>
-        <li><a href="galeriaadmin.php">Galería</a></li>
-        <li><a href="eventosadmin.php">Eventos</a></li>
-        <li><a href="noticiasadmin.php">Noticias</a></li>
-        <li><a href="entrevistasadmin.php">Entrevistas</a></li>
+        <li><a href="historia.php">Historia</a></li>
+        <li><a href="cronicas.php">Crónicas</a></li>
+        <li><a href="galeria.php">Galería</a></li>
+        <li><a href="eventos.php">Eventos</a></li>
+        <li><a href="noticias.php">Noticias</a></li>
+        <li><a href="entrevistas.php">Entrevistas</a></li>
     </ul>
 </nav>
 
