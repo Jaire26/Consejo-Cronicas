@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Noticias</title>
-  <!-- Corregido: Ruta directa al CSS desde la raíz -->
   <link rel="stylesheet" href="css/catalogo.css">
 </head>
 <body>
@@ -12,12 +11,10 @@
  <nav id="sidebar">
 
     <div class="logo">
-      <!-- Corregido: Ruta directa al logotipo -->
       <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
     </div>
 
     <ul class="menu">
-        <!-- Corregido: Enlaces limpios sin '../' y actualizados a la extensión .php -->
         <li><a href="index.php">Inicio</a></li>
         <li><a href="historia.php">Historia</a></li>
         <li><a href="cronicas.php">Crónicas</a></li>
@@ -61,7 +58,6 @@
     <div class="footer-content">
       <h2>Crónica Huejutlense</h2>
 
-      <!-- Corregido: Se eliminó la doble comilla extra de la clase -->
       <div class="footer-contact">
           <p>
             <strong>Correo:</strong>
