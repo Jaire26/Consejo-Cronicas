@@ -6,6 +6,12 @@ if (!isset($_SESSION["id_usuario"])) {
 }
 include("../conexion/conexion.php");
 
+// 1. CONSULTA DE CONFIGURACIÓN (Agregada para que funcione el logo)
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
+
+// 2. Consulta de eventos
 $query = "SELECT * FROM eventos ORDER BY id_evento DESC";
 $resultado = mysqli_query($conn, $query);
 ?>
@@ -17,8 +23,7 @@ $resultado = mysqli_query($conn, $query);
   <title>Eventos - Admin</title>
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/eventos.css">
-    <link rel="stylesheet" href="../css/galeriaadmin.css">
-      
+  <link rel="stylesheet" href="../css/galeriaadmin.css">
 </head>
 <body>
 
@@ -87,7 +92,9 @@ $resultado = mysqli_query($conn, $query);
     </div>
   
   </section>
-</div> <div class="image-viewer" id="viewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">
+</div> 
+
+<div class="image-viewer" id="viewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">
     <span id="close-viewer" style="position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; font-weight: bold;">&times;</span>
     <img id="viewer-img" src="" alt="Imagen Ampliada" style="max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
 </div>

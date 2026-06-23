@@ -6,7 +6,12 @@ if (!isset($_SESSION["id_usuario"])) {
 }
 include("../conexion/conexion.php");
 
-// Consultamos de la tabla renombrada 'galeria'
+// 1. CONSULTA DE CONFIGURACIÓN (Agregada para que funcione el logo)
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
+
+// 2. Consultamos de la tabla renombrada 'galeria'
 $query = "SELECT * FROM galeria ORDER BY id_galeria DESC";
 $resultado = mysqli_query($conn, $query);
 ?>
