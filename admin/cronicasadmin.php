@@ -20,8 +20,8 @@ if (!isset($_SESSION["id_usuario"])) {
 
  <nav id="sidebar"> 
   <div class="logo">
-  <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
-</div>
+    <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
+  </div>
     <ul class="menu">
     <li><a href="index.php">Inicio</a></li>
     <li><a href="historiaadmin.php">Historia</a></li>
@@ -31,10 +31,8 @@ if (!isset($_SESSION["id_usuario"])) {
     <li><a href="perfilesadmin.php">Perfiles</a></li>
     <li><a href="noticiasadmin.php">Noticias</a></li>
     <li><a href="entrevistasadmin.php">Entrevistas</a></li>
-    
-    <li style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 10px; padding-top: 10px;">
-        <a href="editar_footer.php" style="color: #ffc107; font-weight: bold;">⚙️ Configurar Footer</a>
-    </li>
+    <li><a href="editar_footer.php">Editar footer</a></li>
+
   </ul>
 </nav>
 
