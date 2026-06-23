@@ -19,9 +19,9 @@ if (!isset($_SESSION["id_usuario"])) {
 <body>
 
  <nav id="sidebar"> 
-  <div class="logo">
-    <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
-  </div>
+    <div class="logo">
+  <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
+</div>
     <ul class="menu">
     <li><a href="index.php">Inicio</a></li>
     <li><a href="historiaadmin.php">Historia</a></li>

@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label>Ubicación / Dirección:</label>
                     <input type="text" name="ubicacion" value="<?php echo htmlspecialchars($config['ubicacion']); ?>" required>
                 </div>
-                <button type="submit" class="btn-guardar">💾 Guardar Configuración</button>
+                <button type="submit" class="btn-guardar">Guardar Configuración</button>
             </form>
         </div>
     </div>
