@@ -487,94 +487,226 @@ footer p{
     background-position: center;
   }
 }
-
 /* ══════════════════════════════
    FEED DE NOTICIAS
 ══════════════════════════════ */
-.feed-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  max-width: 950px;
+
+.feed-section{
+    background:#181818;
+    min-height:100vh;
 }
 
-.feed-card {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center;
-  gap: 25px;
-  margin-bottom: 0;
-  background: #fff;
-  border: 1px solid rgba(211,140,58,.18);
-  border-radius: 18px;
-  overflow: hidden;
-  padding: 20px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
-  transition: .3s;
+.feed-container{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:35px;
 }
 
-.feed-card:hover {
-  box-shadow: 0 12px 28px rgba(181,106,43,.15);
-  transform: translateY(-3px);
+.feed-card{
+    display:flex;
+    align-items:center;
+    gap:35px;
+
+    background:#F8F5F2;
+
+    border-radius:28px;
+
+    padding:22px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:1px solid rgba(211,140,58,.15);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.35s ease;
 }
 
-.feed-image {
-  flex: 0 0 40%;
-  max-width: 400px;
+.feed-card::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:8px;
+    height:100%;
+
+    background:linear-gradient(
+        to bottom,
+        var(--color3),
+        var(--color5)
+    );
 }
 
-.feed-image img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-  border-radius: 12px;
+.feed-card:hover{
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.15);
 }
 
-.feed-info {
-  flex: 1;
-  padding: 5px 10px;
+.feed-image{
+    flex:0 0 320px;
 }
 
-.feed-info .tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--color5);
-  background: rgba(211,140,58,.12);
-  padding: 4px 12px;
-  border-radius: 50px;
-  margin-bottom: 10px;
+.feed-image img{
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    transition:.4s;
 }
 
-.feed-info h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--color1);
-  margin-bottom: 10px;
-  line-height: 1.25;
+.feed-card:hover .feed-image img{
+    transform:scale(1.05);
 }
 
-.feed-info p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.95rem;
-  color: #6F4A33;
-  line-height: 1.7;
+.feed-info{
+    flex:1;
 }
 
-@media (max-width: 700px) {
-  .feed-card {
-    flex-direction: column !important;
-    padding: 16px;
-  }
-  .feed-image {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-  .feed-info h3 {
-    font-size: 1.3rem;
-  }
+.feed-info .tag{
+    display:inline-block;
+
+    background:#EEE4D9;
+
+    color:var(--color5);
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    margin-bottom:15px;
+}
+
+.feed-info h3{
+    font-family:'Playfair Display', serif;
+
+    font-size:2rem;
+
+    color:var(--color1);
+
+    margin-bottom:15px;
+
+    line-height:1.2;
+}
+
+.feed-info p{
+    font-size:1rem;
+
+    color:#6F4A33;
+
+    line-height:1.8;
+
+    margin-bottom:15px;
+}
+
+.feed-date{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--color5);
+
+    font-size:.9rem;
+
+    font-weight:600;
+}
+
+.feed-btn{
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:10px 24px;
+
+    background:linear-gradient(
+        135deg,
+        var(--color3),
+        var(--color5)
+    );
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.feed-btn:hover{
+    transform:translateY(-3px);
+
+    background:linear-gradient(
+        135deg,
+        var(--color2),
+        var(--color1)
+    );
+}
+
+/* Título de la sección */
+
+.feed-section .section-title h2{
+    color:white;
+}
+
+.feed-section .section-title p{
+    color:#d6d6d6;
+}
+
+/* Buscador */
+
+.feed-section .search-box{
+    position:relative;
+    top:auto;
+    right:auto;
+
+    margin:0 auto 40px auto;
+
+    width:fit-content;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+    .feed-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .feed-image{
+        flex:unset;
+        width:100%;
+    }
+
+    .feed-image img{
+        height:250px;
+    }
+
+    .feed-info h3{
+        font-size:1.6rem;
+    }
 }
