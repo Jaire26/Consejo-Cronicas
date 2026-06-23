@@ -1,6 +1,10 @@
 <?php
 include("conexion/conexion.php");
 
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
+
 $sql = "SELECT * FROM historias ORDER BY fecha_creacion DESC";
 $resultado = mysqli_query($conn, $sql);
 ?>
@@ -19,10 +23,8 @@ $resultado = mysqli_query($conn, $sql);
 
   <nav id="sidebar">
     <div class="logo">
-      <!-- Corregido: Se quitó '../' porque la carpeta img está al lado de este archivo -->
-      <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
-    </div>
-
+  <img src="img/<?php echo $config['logo']; ?>" alt="Logo">
+</div>
     <ul class="menu">
         <!-- Corregido: Enlaces limpios sin '../' y actualizados a .php para el público -->
         <li><a href="index.php">Inicio</a></li>
@@ -80,29 +82,6 @@ $resultado = mysqli_query($conn, $sql);
     </section>
   </div>
   
-  <footer class="footer-global">
-    <div class="footer-content">
-      <h2>Crónica Huejutlense</h2>
-
-      <!-- Corregido un pequeño detalle de doble comilla en tu etiqueta original -->
-      <div class="footer-contact">
-        <p>
-          <strong>Correo:</strong>
-          contacto@cronicahuejutla.com
-        </p>
-
-        <p>
-          <strong>Teléfono:</strong>
-          +52 775 487 9831
-        </p>
-
-        <p>
-          <strong>Ubicación:</strong>
-          Huejutla de Reyes, Hidalgo
-        </p>
-      </div>
-    </div> <!-- Corregido: Faltaba cerrar este div antes del footer -->
-  </footer>
-
+  <?php include("componentes/footer.php"); ?>
 </body>
 </html>

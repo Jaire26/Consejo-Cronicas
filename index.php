@@ -1,3 +1,12 @@
+<?php
+include("conexion/conexion.php");
+
+// Traemos los datos para que el logo funcione en el index
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,8 +27,8 @@
   <nav id="navbar">
  
     <div class="logo">
-      <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
-    </div>
+  <img src="img/<?php echo $config['logo']; ?>" alt="Logo">
+</div>
  
     <!-- Botón hamburguesa (solo visible en móvil) -->
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
@@ -131,16 +140,7 @@
   </div>
 </section>
  
-<footer class="footer-global">
-  <div class="footer-content">
-    <h2>Crónica Huejutlense</h2>
-    <div class="footer-contact">
-      <p><strong>Correo:</strong> contacto@cronicahuejutla.com</p>
-      <p><strong>Teléfono:</strong> +52 775 487 9831</p>
-      <p><strong>Ubicación:</strong> Huejutla de Reyes, Hidalgo</p>
-    </div>
-  </div>
-</footer>
+<?php include("componentes/footer.php"); ?>
  
 <script src="js/inicio.js"></script>
  

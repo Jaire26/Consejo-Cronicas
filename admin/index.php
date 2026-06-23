@@ -96,6 +96,11 @@ if (!isset($_SESSION["id_usuario"])) {
       <h3>Entrevistas</h3>
       <p>Agrega contenido interesante.</p>
     </a>
+
+    <a href="editar_footer.php" class="opcion-card">
+      <h3>Editar logo y datos</h3>
+      <p>Edita el logo y los datos de la pagina.</p>
+    </a>
  
   </div>
  

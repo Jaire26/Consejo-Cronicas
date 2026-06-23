@@ -33,6 +33,7 @@ if (!isset($_SESSION["id_usuario"])) {
             <li><a href="perfilesadmin.php">Perfiles</a></li>
             <li><a href="noticiasadmin.php">Noticias</a></li>
             <li><a href="entrevistasadmin.php">Entrevistas</a></li>
+            <li><a href="editar_footer.php">Editar logo y datos</a></li>
         </ul>
 
     </nav>

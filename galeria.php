@@ -1,6 +1,11 @@
 <?php 
 // Conexión a la base de datos
-require_once("conexion/conexion.php"); 
+require_once("conexion/conexion.php");
+
+
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
 
 $query = "SELECT * FROM galeria ORDER BY id_galeria DESC";
 $resultado = mysqli_query($conn, $query);
@@ -20,7 +25,7 @@ $total_imagenes = mysqli_num_rows($resultado);
 
  <nav id="sidebar">
     <div class="logo">
-      <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
+      <img src="img/<?php echo $config['logo']; ?>" alt="Logo">
     </div>
     <ul class="menu">
         <li><a href="index.php">Inicio</a></li>
@@ -66,17 +71,7 @@ $total_imagenes = mysqli_num_rows($resultado);
         <p id="viewer-description"></p>
     </div>
 </div>
-
-<footer class="footer-global">
-    <div class="footer-content">
-      <h2>Crónica Huejutlense</h2>
-      <div class="footer-contact">
-          <p><strong>Correo:</strong> contacto@cronicahuejutla.com</p>
-          <p><strong>Teléfono:</strong> +52 775 487 9831</p>
-          <p><strong>Ubicación:</strong> Huejutla de Reyes, Hidalgo</p>
-      </div>
-    </div>
-</footer>
+  <?php include("componentes/footer.php"); ?>
 
 <script src="js/galeria.js"></script>
 </body>
