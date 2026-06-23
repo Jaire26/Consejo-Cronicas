@@ -40,7 +40,7 @@ body{
 
   overflow-x:hidden;
   padding-top: 0px;
-  margin: 0;        /* Añade esto para quitar bordes fantasma */
+  margin: 0;        
   width: 100%;
 }
 header{
@@ -487,12 +487,10 @@ footer p{
     background-position: center;
   }
 }
-/* ══════════════════════════════
-   FEED DE NOTICIAS
-══════════════════════════════ */
+/* feed noticias*/
 
 .feed-section{
-    background:#181818;
+    background:#FFF8F1;
     min-height:100vh;
 }
 
