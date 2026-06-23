@@ -12,6 +12,11 @@ if (!isset($_SESSION["id_usuario"])) {
 }
  
 include("../conexion/conexion.php");
+
+// 1. Traer la configuración saliendo un nivel
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
  
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  

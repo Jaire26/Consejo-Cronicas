@@ -9,6 +9,13 @@ if ($_SESSION["id_rol"] != 1) {
     header("Location: ../admin/index.php");
     exit();
 }
+
+include("../conexion/conexion.php");
+
+// 1. Traer la configuración saliendo un nivel
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
 require_once(__DIR__ . "/../conexion/conexion.php");
 $mensaje = "";
 $error   = "";
@@ -83,8 +90,7 @@ $usuarios = mysqli_query($conn, "
  
 <nav id="sidebar">
   <div class="logo">
-    <img src="../img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
-  </div>
+    <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
   <ul class="menu">
     <li><a href="index.php">Inicio</a></li>
     <li><a href="historiaadmin.php">Historia</a></li>

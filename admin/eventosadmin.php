@@ -24,7 +24,7 @@ $resultado = mysqli_query($conn, $query);
 
  <nav id="sidebar">
     <div class="logo">
-      <img src="../img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
+      <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
     </div>
     <ul class="menu">
         <li><a href="index.php">Inicio</a></li>
@@ -92,15 +92,6 @@ $resultado = mysqli_query($conn, $query);
     <img id="viewer-img" src="" alt="Imagen Ampliada" style="max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
 </div>
 
-<footer class="footer-global">
-    <div class="footer-content">
-      <h2>Crónica Huejutlense</h2>
-      <div class="footer-contact">
-          <p><strong>Correo:</strong> contacto@cronicahuejutla.com</p>
-          <p><strong>Teléfono:</strong> +52 775 487 9831</p>
-          <p><strong>Ubicación:</strong> Huejutla de Reyes, Hidalgo</p>
-      </div>
-    </div>
-</footer>
+<?php include("../componentes/footer.php"); ?>
 </body>
 </html>
