@@ -1,4 +1,8 @@
 <?php
+// MODO DIAGNÓSTICO TEMPORAL — quitar estas 2 líneas cuando ya funcione
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if (!isset($_SESSION["id_usuario"])) {
@@ -37,11 +41,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES
             ('$titulo', '$contenido', '$imagen', '$id_usuario')";
 
+    // DIAGNÓSTICO: mostrar la consulta exacta y el error si falla
     if(mysqli_query($conn, $sql)){
         header("Location: noticiasadmin.php");
         exit();
     }else{
-        echo "Error al guardar: " . mysqli_error($conn);
+        echo "<h2>Error al guardar:</h2>";
+        echo "<p><strong>Mensaje MySQL:</strong> " . mysqli_error($conn) . "</p>";
+        echo "<p><strong>Consulta SQL ejecutada:</strong></p>";
+        echo "<pre>" . htmlspecialchars($sql) . "</pre>";
+        echo "<p><strong>Valor de \$_SESSION['id_usuario']:</strong> ";
+        var_dump($id_usuario);
+        echo "</p>";
+        exit();
     }
 }
 ?>
