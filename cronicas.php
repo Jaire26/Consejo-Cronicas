@@ -2,6 +2,9 @@
 // 1. Incluimos tu archivo de conexión (ajusta la ruta si en la raíz cambia, por ejemplo a "conexion/conexion.php")
 include("conexion/conexion.php");
 
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
 // 2. Consultamos las crónicas para el público
 $sql = "SELECT * FROM cronicas ORDER BY id_cronica DESC"; 
 $resultado = mysqli_query($conn, $sql);
@@ -21,7 +24,7 @@ $resultado = mysqli_query($conn, $sql);
 
  <nav id="sidebar">
     <div class="logo">
-      <img src="img/LogoConsejo-removebg-preview.png" alt="Logo Crónica Huejutlense">
+      <img src="img/<?php echo $config['logo']; ?>" alt="Logo">
     </div>
 
     <ul class="menu">
@@ -102,18 +105,9 @@ $resultado = mysqli_query($conn, $sql);
   </section>
 
 </div>
+      <?php include("componentes/footer.php"); ?>
 
-<footer class="footer-global">
-  <div class="footer-content">
-    <h2>Crónica Huejutlense</h2>
 
-    <div class="footer-contact">
-      <p><strong>Correo:</strong> contacto@cronicahuejutla.com</p>
-      <p><strong>Teléfono:</strong> +52 775 487 9831</p>
-      <p><strong>Ubicación:</strong> Huejutla de Reyes, Hidalgo</p>
-    </div>
-  </div> 
-</footer>
 
   <script src="js/leercronica.js"></script>
 </body>
