@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 if (!isset($_SESSION["id_usuario"])) {
@@ -173,4 +174,3 @@ function generarResumen($texto, $limite = 160) {
 <?php include("../componentes/footer.php"); ?>
 </body>
 </html>
- 
