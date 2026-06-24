@@ -7,8 +7,17 @@ $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
 
-// 2. Traer las entrevistas correspondientes
-$query_entrevistas = "SELECT * FROM entrevistas ORDER BY id DESC";
+// 2. Lógica del Buscador
+$buscar = "";
+if (isset($_GET['buscar']) && !empty(trim($_GET['buscar']))) {
+    $buscar = mysqli_real_escape_string($conn, $_GET['buscar']);
+    $query_entrevistas = "SELECT * FROM entrevistas 
+                          WHERE titulo LIKE '%$buscar%' OR subtitulo LIKE '%$buscar%' 
+                          ORDER BY id DESC";
+} else {
+    $query_entrevistas = "SELECT * FROM entrevistas ORDER BY id DESC";
+}
+
 $res_entrevistas = mysqli_query($conn, $query_entrevistas);
 ?>
 <!DOCTYPE html>
@@ -46,34 +55,40 @@ $res_entrevistas = mysqli_query($conn, $query_entrevistas);
         </div>
 
         <div class="search-box">
-            <input type="text" placeholder="Buscar...">
+            <form method="GET" action="entrevistas.php">
+                <input type="text" name="buscar" placeholder="Buscar..." value="<?php echo htmlspecialchars($buscar); ?>">
+                <button type="submit" style="display:none;"></button>
+            </form>
         </div>
         
         <div class="contenido">
             <div class="noticias">
-                <?php 
+            <?php 
                 if (mysqli_num_rows($res_entrevistas) > 0) {
                     while ($entrevista = mysqli_fetch_assoc($res_entrevistas)) { 
-                ?>
-                        <article class="noticia-principal">
-                            <img src="img/entrevistas/<?php echo $entrevista['imagen']; ?>" alt="Imagen de la entrevista">
-                            <div class="info">
-                                <h2>
-                                    <a href="detalle_entrevista.php?id=<?php echo $entrevista['id']; ?>">
+            ?>
+                        <article class="noticia-principal" style="display: flex; gap: 30px; margin-bottom: 40px; background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(62, 22, 19, 0.05); align-items: flex-start; border: 1px solid #f1ddc4;">
+                            <div style="flex-shrink: 0; width: 280px; height: 190px; overflow: hidden; border-radius: 10px;">
+                                <img src="img/entrevistas/<?php echo $entrevista['imagen']; ?>" alt="Imagen" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            
+                            <div class="info" style="flex-grow: 1;">
+                                <h2 style="margin: 0 0 12px 0; font-family: 'Playfair Display', serif; font-size: 1.8rem; line-height: 1.3;">
+                                    <a href="detalle_entrevista.php?id=<?php echo $entrevista['id']; ?>" style="color: #3E1613; text-decoration: none; transition: 0.3s;">
                                         <?php echo htmlspecialchars($entrevista['titulo']); ?>
                                     </a>
                                 </h2>
-                                <p>
+                                <p style="color: #7C3F20; font-size: 1rem; line-height: 1.6; margin: 0; text-align: justify;">
                                     <?php echo htmlspecialchars($entrevista['subtitulo']); ?>
                                 </p>
                             </div>
                         </article>
-                <?php 
+            <?php 
                     }
                 } else {
-                    echo "<p style='text-align:center; color:#3E1613; grid-column: 1/-1;'>Próximamente más entrevistas interesantes.</p>";
+                    echo "<p style='text-align:center; color:#3E1613; grid-column: 1/-1;'>No se encontraron entrevistas que coincidan con la búsqueda.</p>";
                 } 
-                ?>
+            ?>
             </div>
         </div>
     </section>
