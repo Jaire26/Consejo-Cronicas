@@ -61,13 +61,13 @@ $res_entrevistas = mysqli_query($conn, $query_entrevistas);
             </form>
         </div>
         
-        <div class="contenido">
-            <div class="noticias">
+        <div class="contenido" style="width: 100%; max-width: 100%; display: block; box-sizing: border-box;">
+            <div class="noticias" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box;">
             <?php 
                 if (mysqli_num_rows($res_entrevistas) > 0) {
                     while ($entrevista = mysqli_fetch_assoc($res_entrevistas)) { 
             ?>
-                        <article class="noticia-principal" style="display: flex; gap: 35px; margin-bottom: 40px; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(62, 22, 19, 0.05); align-items: flex-start; border: 1px solid #f1ddc4; width: 92%; max-width: 1100px; margin-left: auto; margin-right: auto;">
+                        <article class="noticia-principal" style="display: flex; gap: 35px; margin-bottom: 40px; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(62, 22, 19, 0.05); align-items: flex-start; border: 1px solid #f1ddc4; width: 95%; max-width: 1150px; box-sizing: border-box;">
                             <div style="flex-shrink: 0; width: 280px; height: 190px; overflow: hidden; border-radius: 10px;">
                                 <img src="img/entrevistas/<?php echo $entrevista['imagen']; ?>" alt="Imagen" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
@@ -86,7 +86,7 @@ $res_entrevistas = mysqli_query($conn, $query_entrevistas);
             <?php 
                     }
                 } else {
-                    echo "<p style='text-align:center; color:#3E1613; grid-column: 1/-1;'>No se encontraron entrevistas que coincidan con la búsqueda.</p>";
+                    echo "<p style='text-align:center; color:#3E1613; width:100%;'>No se encontraron entrevistas que coincidan con la búsqueda.</p>";
                 } 
             ?>
             </div>
