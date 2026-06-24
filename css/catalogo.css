@@ -711,4 +711,24 @@ footer p{
   .feed-info h3 {
     font-size: 1.3rem;
   }
+}/* ==========================================================================
+   Estilos específicos para el módulo de Historia (No afectan a otros módulos)
+   ========================================================================== */
+
+/* Controla el contenedor de la tarjeta en historia para asegurar consistencia */
+#historia .card {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff; /* Le da un fondo sólido blanco para que resalte el glifo */
+}
+
+/* Ajusta la imagen del glifo/ilustración en el módulo de historia */
+#historia .card img {
+    width: 100% !important;
+    height: 220px !important;    /* Bajamos un poco el alto para centrar el impacto visual */
+    object-fit: contain !important; /* Muestra el glifo completo sin deformarlo ni pixelarlo */
+    object-position: center !important; 
+    padding: 20px !important;    /* Más espacio alrededor para que respire la ilustración */
+    box-sizing: border-box !important;
 }
