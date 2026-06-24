@@ -7,17 +7,21 @@ if (!isset($_SESSION["id_usuario"])) {
 
 include("../conexion/conexion.php");
 
-// 1. Traer la configuración saliendo un nivel
+// 1. Traer la configuración del logo
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
+
+// 2. CONSULTA DINÁMICA: Traer las entrevistas desde la Base de Datos (ordenadas por la más reciente)
+$query_entrevistas = "SELECT * FROM entrevistas ORDER BY id DESC";
+$res_entrevistas = mysqli_query($conn, $query_entrevistas);
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrevistas</title>
+    <title>Entrevistas - Administrador</title>
 
     <link rel="stylesheet" href="../css/entrevista.css"> 
     <link rel="stylesheet" href="../css/catalogo.css">
@@ -26,11 +30,9 @@ $config = mysqli_fetch_assoc($res_conf);
 
 <body>
     <nav id="sidebar">
-
         <div class="logo">
             <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
-
-        <ul class="menu">
+        </div> <ul class="menu">
             <li><a href="index.php">Inicio</a></li>
             <li><a href="historiaadmin.php">Historia</a></li>
             <li><a href="cronicasadmin.php">Crónicas</a></li>
@@ -41,7 +43,6 @@ $config = mysqli_fetch_assoc($res_conf);
             <li><a href="entrevistasadmin.php">Entrevistas</a></li>
             <li><a href="editar_footer.php">Editar logo y datos</a></li>
         </ul>
-
     </nav>
 
 <div class="main-content">
@@ -59,19 +60,31 @@ $config = mysqli_fetch_assoc($res_conf);
         
         <div class="contenido">
             <div class="noticias">
-                <article class="noticia-principal">
-                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop">
-                    <div class="info">
-                        <h2>
-                            <a href="entrevista1.html">
-                                 "Manuel Bartlett, autor intelectual del asesinato..."
-                            </a>
-                        </h2>
-                        <p>
-                            El “Fiscal de Hierro” compartió detalles de las investigaciones.
-                        </p>
-                    </div>
-                </article>
+                <?php 
+                // Verificar si existen entrevistas registradas
+                if (mysqli_num_rows($res_entrevistas) > 0) {
+                    while ($entrevista = mysqli_fetch_assoc($res_entrevistas)) { 
+                ?>
+                        <article class="noticia-principal" style="margin-bottom: 20px;">
+                            <img src="../img/entrevistas/<?php echo $entrevista['imagen']; ?>" alt="Imagen de la entrevista">
+                            <div class="info">
+                                <h2>
+                                    <a href="ver_entrevista.php?id=<?php echo $entrevista['id']; ?>">
+                                        "<?php echo htmlspecialchars($entrevista['titulo']); ?>"
+                                    </a>
+                                </h2>
+                                <p>
+                                    <?php echo htmlspecialchars($entrevista['subtitulo']); ?>
+                                </p>
+                            </div>
+                        </article>
+                <?php 
+                    }
+                } else {
+                    // Mensaje en caso de que la tabla esté vacía
+                    echo "<p style='text-align:center; color:#4a2310;'>No hay entrevistas registradas actualmente.</p>";
+                } 
+                ?>
             </div>
         </div>
         
