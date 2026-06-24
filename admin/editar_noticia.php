@@ -103,6 +103,7 @@ $res_galeria = mysqli_query($conn, $sql_galeria);
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editar Noticia</title>
@@ -134,11 +135,8 @@ $res_galeria = mysqli_query($conn, $sql_galeria);
   </ul>
  
 </nav>
- 
-<div class="main-content">
- 
-<div class="upload-container">
- 
+ <div class="main-content">
+</div>
     <a href="noticiasadmin.php" class="btn-volver-fixed">
          ← Volver
     </a>
@@ -204,11 +202,10 @@ $res_galeria = mysqli_query($conn, $sql_galeria);
             </button>
  
         </form>
- 
-    </div>
+ </div>
 </div>
- 
+
 </div>
- 
+
 </body>
 </html>
