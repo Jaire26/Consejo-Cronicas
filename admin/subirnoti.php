@@ -67,11 +67,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Agregar Noticia</title>
 <link rel="stylesheet" href="../css/subir.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/galeriaadmin.css">
+<link rel="stylesheet" href="../css/subir.css">
+<style>
+.main-content{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:40px;
+}
+
+.upload-card{
+    width:100%;
+    max-width:700px;
+}
+</style>
+
+
 </head>
 <body>
  

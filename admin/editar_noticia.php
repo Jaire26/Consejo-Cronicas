@@ -135,17 +135,18 @@ $res_galeria = mysqli_query($conn, $sql_galeria);
   </ul>
  
 </nav>
- <div class="main-content">
-</div>
+
+<div class="main-content">
+
     <a href="noticiasadmin.php" class="btn-volver-fixed">
          ← Volver
     </a>
- 
+
     <div class="upload-card">
- 
+
         <h1>Editar Noticia</h1>
         <p>Actualiza el contenido de esta noticia.</p>
- 
+
         <form method="POST" enctype="multipart/form-data">
  
             <input type="hidden" name="id_noticia" value="<?php echo $noticia['id_noticia']; ?>">
@@ -201,9 +202,9 @@ $res_galeria = mysqli_query($conn, $sql_galeria);
                 Guardar Cambios
             </button>
  
-        </form>
- </div>
-</div>
+              </form>
+
+    </div>
 
 </div>
 
