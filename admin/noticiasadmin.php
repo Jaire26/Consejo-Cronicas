@@ -1,118 +1,116 @@
-
 <?php
-// MODO DIAGNÓSTICO TEMPORAL — quitar estas 2 líneas cuando ya funcione
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
- 
 session_start();
- 
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
  
 include("../conexion/conexion.php");
-
-// 1. Traer la configuración saliendo un nivel
+ 
+// Traer la configuración (para el logo dinámico)
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
  
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Traer todas las noticias guardadas, las más nuevas primero
+$sql = "SELECT * FROM noticias ORDER BY id_noticia DESC";
+$resultado = mysqli_query($conn, $sql);
  
-    $titulo = mysqli_real_escape_string($conn, $_POST["titulo"]);
-    $contenido = mysqli_real_escape_string($conn, $_POST["descripcion"]);
-    $id_usuario = $_SESSION["id_usuario"];
- 
-    $imagen = "";
- 
-    if(isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0){
- 
-        $carpeta = "../img/noticias/";
- 
-        if(!file_exists($carpeta)){
-            mkdir($carpeta, 0777, true);
-        }
- 
-        $imagen = time() . "_" . basename($_FILES["imagen"]["name"]);
- 
-        move_uploaded_file(
-            $_FILES["imagen"]["tmp_name"],
-            $carpeta . $imagen
-        );
-    }
- 
-    $sql = "INSERT INTO noticias
-            (titulo, contenido, imagen, id_usuario)
-            VALUES
-            ('$titulo', '$contenido', '$imagen', '$id_usuario')";
- 
-    // DIAGNÓSTICO: mostrar la consulta exacta y el error si falla
-    if(mysqli_query($conn, $sql)){
-        header("Location: noticiasadmin.php");
-        exit();
-    }else{
-        echo "<h2>Error al guardar:</h2>";
-        echo "<p><strong>Mensaje MySQL:</strong> " . mysqli_error($conn) . "</p>";
-        echo "<p><strong>Consulta SQL ejecutada:</strong></p>";
-        echo "<pre>" . htmlspecialchars($sql) . "</pre>";
-        echo "<p><strong>Valor de \$_SESSION['id_usuario']:</strong> ";
-        var_dump($id_usuario);
-        echo "</p>";
-        exit();
-    }
+if (!$resultado) {
+    die("Error en la consulta SQL: " . mysqli_error($conn));
 }
 ?>
- 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agregar Noticia</title>
-<link rel="stylesheet" href="../css/subir.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noticias</title>
+  <link rel="stylesheet" href="../css/catalogo.css">
+  <link rel="stylesheet" href="../css/galeriaadmin.css">
 </head>
 <body>
  
-<div class="upload-container">
+ <nav id="sidebar">
  
-    <a href="noticiasadmin.php" class="btn-volver-fixed">
-         ← Volver
-    </a>
+    <div class="logo">
+      <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
+    </div>
  
-    <div class="upload-card">
+  <ul class="menu">
+    <li><a href="index.php">Inicio</a></li>
+    <li><a href="historiaadmin.php">Historia</a></li>
+    <li><a href="cronicasadmin.php">Crónicas</a></li>
+    <li><a href="galeriaadmin.php">Galería</a></li>
+    <li><a href="eventosadmin.php">Eventos</a></li>
+    <li><a href="perfilesadmin.php">Perfiles</a></li>
+    <li><a href="noticiasadmin.php">Noticias</a></li>
+    <li><a href="entrevistasadmin.php">Entrevistas</a></li>
+    <li><a href="editar_footer.php">Editar logo y datos</a></li>
+  </ul>
  
-        <h1>Subir Una Nueva Noticia</h1>
-        <p>Agrega nuevo contenido al feed informativo.</p>
+</nav>
  
-        <form method="POST" enctype="multipart/form-data">
+<div class="main-content">
+  <section class="feed-section">
  
-            <div class="input-group">
-                <label>Título</label>
-                <input type="text" name="titulo" required>
-            </div>
+    <div class="section-title">
+      <h2>Noticias</h2>
+      <p>Entérate de las últimas novedades</p>
+    </div>
  
-            <div class="input-group">
-                <label>Descripción</label>
-                <textarea name="descripcion" required></textarea>
-            </div>
+    <div class="search-box">
+      <input type="text" placeholder="Buscar...">
+    </div>
  
-            <div class="input-group">
-                <label>Seleccionar imagen</label>
-                <input type="file" name="imagen" accept="image/*" required>
-            </div>
+    <div class="feed-container">
  
-            <button type="submit" class="btn-upload">
-                Subir Noticia
-            </button>
+      <?php
+      if ($resultado && mysqli_num_rows($resultado) > 0) {
+          while ($noticia = mysqli_fetch_assoc($resultado)) {
  
-        </form>
+              $titulo    = htmlspecialchars($noticia["titulo"]);
+              $contenido = htmlspecialchars($noticia["contenido"]);
+              $imagen    = $noticia["imagen"];
+ 
+              // Si tiene imagen guardada, la usamos; si no, una de respaldo
+              if (!empty($imagen)) {
+                  $rutaImagen = "../img/noticias/" . htmlspecialchars($imagen);
+              } else {
+                  $rutaImagen = "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600";
+              }
+              ?>
+ 
+              <div class="feed-card">
+                <div class="feed-image">
+                  <img src="<?php echo $rutaImagen; ?>" alt="<?php echo $titulo; ?>">
+                </div>
+                <div class="feed-info">
+                  <span class="tag tag-evento">Noticia</span>
+                  <h3><?php echo $titulo; ?></h3>
+                  <p><?php echo $contenido; ?></p>
+                </div>
+              </div>
+ 
+              <?php
+          }
+      } else {
+          echo "<p style='padding:20px;'>Aún no hay noticias publicadas.</p>";
+      }
+      ?>
+ 
+      <div class="card admin-card">
+        <div class="card-content">
+            <h3>Agregar Contenido</h3>
+            <p>Administre las noticias.</p>
+            <a href="subirnoti.php" class="btn-admin">Agregar</a>
+        </div>
+      </div>
  
     </div>
+  </section>
 </div>
  
+<?php include("../componentes/footer.php"); ?>
 </body>
 </html>
