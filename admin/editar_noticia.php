@@ -61,6 +61,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id_noticia = $id_noticia";
  
     if (mysqli_query($conn, $sql)) {
+ 
+        // Agregar nuevas imágenes a la galería (sin borrar las existentes)
+        if (isset($_FILES["imagenes"])) {
+            $carpeta = "../img/noticias/";
+            $total = count($_FILES["imagenes"]["name"]);
+            for ($i = 0; $i < $total; $i++) {
+                if ($_FILES["imagenes"]["error"][$i] == 0) {
+                    $nombreImg = time() . "_" . $i . "_" . basename($_FILES["imagenes"]["name"][$i]);
+                    if (move_uploaded_file($_FILES["imagenes"]["tmp_name"][$i], $carpeta . $nombreImg)) {
+                        $nombreImgEscapado = mysqli_real_escape_string($conn, $nombreImg);
+                        mysqli_query($conn, "INSERT INTO noticias_imagenes (id_noticia, imagen, orden) VALUES ($id_noticia, '$nombreImgEscapado', $i)");
+                    }
+                }
+            }
+        }
+ 
         header("Location: noticiasadmin.php");
         exit();
     } else {
@@ -78,6 +94,10 @@ if (!$noticia) {
     header("Location: noticiasadmin.php");
     exit();
 }
+ 
+// Traer las imágenes de la galería para mostrarlas en el formulario
+$sql_galeria = "SELECT * FROM noticias_imagenes WHERE id_noticia = $id_noticia ORDER BY orden ASC";
+$res_galeria = mysqli_query($conn, $sql_galeria);
 ?>
  
 <!DOCTYPE html>
@@ -152,8 +172,31 @@ if (!$noticia) {
             <?php endif; ?>
  
             <div class="input-group">
-                <label>Cambiar imagen (opcional)</label>
+                <label>Cambiar imagen principal (opcional)</label>
                 <input type="file" name="imagen" accept="image/*">
+            </div>
+ 
+            <?php if (mysqli_num_rows($res_galeria) > 0): ?>
+            <div class="input-group">
+                <label>Galería actual</label>
+                <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;">
+                    <?php while ($img = mysqli_fetch_assoc($res_galeria)): ?>
+                        <div style="position:relative;">
+                            <img src="../img/noticias/<?php echo htmlspecialchars($img['imagen']); ?>"
+                                 alt="Imagen galería"
+                                 style="width:90px; height:90px; object-fit:cover; border-radius:8px;">
+                            <a href="borrar_imagen_galeria.php?id_imagen=<?php echo $img['id_imagen']; ?>&id_noticia=<?php echo $id_noticia; ?>"
+                               onclick="return confirm('¿Borrar esta imagen de la galería?');"
+                               style="position:absolute; top:-6px; right:-6px; background:#9A3B3B; color:#fff; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:12px; text-decoration:none;">×</a>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+ 
+            <div class="input-group">
+                <label>Agregar más imágenes a la galería (opcional)</label>
+                <input type="file" name="imagenes[]" accept="image/*" multiple>
             </div>
  
             <button type="submit" class="btn-upload">

@@ -102,6 +102,10 @@ if (!$resultado) {
               }
               ?>
  
+              <?php
+              $resumen = mb_strlen($contenido) > 160 ? mb_substr($contenido, 0, 160) . "..." : $contenido;
+              ?>
+ 
               <div class="feed-card">
                 <div class="feed-image">
                   <img src="<?php echo $rutaImagen; ?>" alt="<?php echo $titulo; ?>">
@@ -109,7 +113,7 @@ if (!$resultado) {
                 <div class="feed-info">
                   <span class="tag tag-evento">Noticia</span>
                   <h3><?php echo $titulo; ?></h3>
-                  <p><?php echo $contenido; ?></p>
+                  <p><?php echo $resumen; ?></p>
  
                   <div class="feed-actions">
                     <a href="editar_noticia.php?id=<?php echo $noticia['id_noticia']; ?>" class="btn-editar">Editar</a>

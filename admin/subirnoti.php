@@ -14,18 +14,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contenido = mysqli_real_escape_string($conn, $_POST["descripcion"]);
     $id_usuario = $_SESSION["id_usuario"];
  
+    $carpeta = "../img/noticias/";
+ 
+    if(!file_exists($carpeta)){
+        mkdir($carpeta, 0777, true);
+    }
+ 
+    // Imagen de portada (la que se ve en el feed)
     $imagen = "";
  
     if(isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0){
- 
-        $carpeta = "../img/noticias/";
- 
-        if(!file_exists($carpeta)){
-            mkdir($carpeta, 0777, true);
-        }
- 
         $imagen = time() . "_" . basename($_FILES["imagen"]["name"]);
- 
         move_uploaded_file(
             $_FILES["imagen"]["tmp_name"],
             $carpeta . $imagen
@@ -38,6 +37,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ('$titulo', '$contenido', '$imagen', '$id_usuario')";
  
     if(mysqli_query($conn, $sql)){
+ 
+        $id_noticia_nueva = mysqli_insert_id($conn);
+ 
+        // Imágenes adicionales para la galería (campo múltiple "imagenes[]")
+        if (isset($_FILES["imagenes"])) {
+            $total = count($_FILES["imagenes"]["name"]);
+            for ($i = 0; $i < $total; $i++) {
+                if ($_FILES["imagenes"]["error"][$i] == 0) {
+                    $nombreImg = time() . "_" . $i . "_" . basename($_FILES["imagenes"]["name"][$i]);
+                    if (move_uploaded_file($_FILES["imagenes"]["tmp_name"][$i], $carpeta . $nombreImg)) {
+                        $nombreImgEscapado = mysqli_real_escape_string($conn, $nombreImg);
+                        mysqli_query($conn, "INSERT INTO noticias_imagenes (id_noticia, imagen, orden) VALUES ($id_noticia_nueva, '$nombreImgEscapado', $i)");
+                    }
+                }
+            }
+        }
+ 
         header("Location: noticiasadmin.php");
         exit();
     }else{
@@ -83,8 +99,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
  
             <div class="input-group">
-                <label>Seleccionar imagen</label>
+                <label>Imagen principal (portada)</label>
                 <input type="file" name="imagen" accept="image/*" required>
+            </div>
+ 
+            <div class="input-group">
+                <label>Imágenes adicionales (galería, opcional)</label>
+                <input type="file" name="imagenes[]" accept="image/*" multiple>
             </div>
  
             <button type="submit" class="btn-upload">
