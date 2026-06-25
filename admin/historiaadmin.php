@@ -40,10 +40,10 @@ $resultado = mysqli_query($conn, $sql);
       text-align: center;
       flex: 1;
     }
-    .btn-edit { background-color: #ffc107; color: #000; }
-    .btn-delete { background-color: #dc3545; color: #fff; }
-    .btn-edit:hover { background-color: #e0a800; }
-    .btn-delete:hover { background-color: #bd2130; }
+    .btn-edit { background-color: #F1D8B8;  color: #000; }
+    .btn-delete { background-color: #B56A2B; color: # ; }
+    .btn-edit:hover { background-color: #D38C3A;; }
+    .btn-delete:hover { background-color: #3E1613}
   </style>
 </head>
 <body>
