@@ -61,42 +61,54 @@ $resultado = mysqli_query($conn, $sql);
 
     <div class="cards">
     <?php 
+    
     $meses_es = array("Jan" => "Ene", "Feb" => "Feb", "Mar" => "Mar", "Apr" => "Abr", "May" => "May", "Jun" => "Jun", "Jul" => "Jul", "Aug" => "Ago", "Sep" => "Sep", "Oct" => "Oct", "Nov" => "Nov", "Dec" => "Dic");
 
-    while($cronicas = mysqli_fetch_assoc($resultado)) { 
-        $fecha_en = date("d M Y", strtotime($cronicas['fecha']));
-        $mes_en = date("M", strtotime($cronicas['fecha']));
-        $fecha_es = str_replace($mes_en, $meses_es[$mes_en], $fecha_en);
+    // 3. Ciclo para mostrar las crónicas de forma dinámica
+    if (mysqli_num_rows($resultado) > 0) {
+        while($cronicas = mysqli_fetch_assoc($resultado)) { 
+            // Procesamos la fecha para traducirla
+            $fecha_en = date("d M Y", strtotime($cronicas['fecha']));
+            $mes_en = date("M", strtotime($cronicas['fecha']));
+            $fecha_es = str_replace($mes_en, $meses_es[$mes_en], $fecha_en);
     ?>
-        <div class="card cronica-card">
-            <img src="../img/<?php echo $cronicas['imagen']; ?>" alt="Crónica">
+          <div class="card cronica-card">
+              <img src="img/<?php echo $cronicas['imagen']; ?>" alt="<?php echo htmlspecialchars($cronicas['titulo']); ?>">
 
-            <div class="card-content">
-                <span class="cronica-fecha">
-                    <?php echo $fecha_es; ?>
-                </span>
-                <h3>
-                    <?php echo htmlspecialchars($cronicas['titulo']); ?>
-                </h3>
-                <h4>
-                    Por: <?php echo htmlspecialchars($cronicas['autor']); ?>
-                </h4>
-                <p class="cronica-resumen">
-                    <?php echo htmlspecialchars($cronicas['resumen']); ?>
-                </p>
+              <div class="card-content">
+                  <span class="cronica-fecha">
+                      <?php echo $fecha_es; ?>
+                  </span>
 
-                <button class="btn-cronica" 
-                        onclick="mostrarCronica(this)"
-                        data-titulo="<?php echo htmlspecialchars($cronicas['titulo']); ?>"
-                        data-autor="<?php echo htmlspecialchars($cronicas['autor']); ?>"
-                        data-fecha="<?php echo $fecha_es; ?>"
-                        data-contenido="<?php echo htmlspecialchars($cronicas['contenido']); ?>">
-                    Leer Crónica
-                </button>
-            </div>
-        </div>
-    <?php } ?>
+                  <h3>
+                      <?php echo htmlspecialchars($cronicas['titulo']); ?>
+                  </h3>
 
+                  <h4>
+                      Por: <?php echo htmlspecialchars($cronicas['autor']); ?>
+                  </h4>
+
+                  <p class="cronica-resumen">
+                      <?php echo htmlspecialchars($cronicas['resumen']); ?>
+                  </p>
+
+                  <!-- Pasamos todos los datos al JS mediante atributos data- -->
+                  <button class="btn-cronica" 
+                          onclick="mostrarCronica(this)"
+                          data-titulo="<?php echo htmlspecialchars($cronicas['titulo']); ?>"
+                          data-autor="<?php echo htmlspecialchars($cronicas['autor']); ?>"
+                          data-fecha="<?php echo $fecha_es; ?>"
+                          data-contenido="<?php echo htmlspecialchars($cronicas['contenido']); ?>">
+                     Leer Crónica
+                  </button>
+              </div>
+          </div>
+    <?php 
+        } 
+    } else {
+        echo "<p style='grid-column: 1/-1; text-align: center; color: #666;'>Próximamente más crónicas de nuestra región.</p>";
+    }
+    ?>
         <div class="card admin-card">
           <div class="card-content">
               <h3>Agregar Contenido</h3>
