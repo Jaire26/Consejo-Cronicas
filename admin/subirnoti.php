@@ -12,6 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
     $titulo = mysqli_real_escape_string($conn, $_POST["titulo"]);
     $contenido = mysqli_real_escape_string($conn, $_POST["descripcion"]);
+    $categoria = mysqli_real_escape_string($conn, $_POST["categoria"]);
+    $fecha_publicacion = date("Y-m-d");
     $id_usuario = $_SESSION["id_usuario"];
  
     $carpeta = "../img/noticias/";
@@ -30,11 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $carpeta . $imagen
         );
     }
- 
     $sql = "INSERT INTO noticias
-            (titulo, contenido, imagen, id_usuario)
-            VALUES
-            ('$titulo', '$contenido', '$imagen', '$id_usuario')";
+        (titulo, contenido, imagen, fecha_publicacion, categoria, id_usuario)
+        VALUES
+        ('$titulo', '$contenido', '$imagen', '$fecha_publicacion', '$categoria', '$id_usuario')";
  
     if(mysqli_query($conn, $sql)){
  
@@ -112,7 +113,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label>Descripción</label>
                 <textarea name="descripcion" required></textarea>
             </div>
- 
+            <div class="input-group">
+                <label>Categoría</label>
+                <select name="categoria" required>
+                <option value="">Seleccione una categoría</option>
+                <option value="Historia">Historia</option>
+                <option value="Cultura">Cultura</option>
+                <option value="Eventos">Eventos</option>
+                <option value="Turismo">Turismo</option>
+                <option value="Educación">Educación</option>
+                </select>
+            </div>
             <div class="input-group">
                 <label>Imagen principal (portada)</label>
                 <input type="file" name="imagen" accept="image/*" required>

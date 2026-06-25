@@ -732,3 +732,9 @@ footer p{
     padding: 20px !important;    /* Más espacio alrededor para que respire la ilustración */
     box-sizing: border-box !important;
 }
+.fecha-noticia{
+    font-size: 13px;
+    color: #777;
+    margin: 5px 0 10px;
+    font-style: italic;
+}

@@ -24,9 +24,11 @@ $id_noticia = isset($_POST["id_noticia"]) ? intval($_POST["id_noticia"]) : intva
  
 // Si se envió el formulario, actualizamos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
- 
+    
     $titulo = mysqli_real_escape_string($conn, $_POST["titulo"]);
     $contenido = mysqli_real_escape_string($conn, $_POST["descripcion"]);
+    $categoria = mysqli_real_escape_string($conn, $_POST["categoria"]);
+
  
     // Traer la imagen actual por si no se sube una nueva
     $sql_actual = "SELECT imagen FROM noticias WHERE id_noticia = $id_noticia";
@@ -55,10 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $imagen = $nuevaImagen;
         }
     }
- 
     $sql = "UPDATE noticias
-            SET titulo = '$titulo', contenido = '$contenido', imagen = '$imagen'
-            WHERE id_noticia = $id_noticia";
+        SET titulo = '$titulo',
+            contenido = '$contenido',
+            categoria = '$categoria',
+            imagen = '$imagen'
+        WHERE id_noticia = $id_noticia";
  
     if (mysqli_query($conn, $sql)) {
  
@@ -160,7 +164,16 @@ $res_galeria = mysqli_query($conn, $sql_galeria);
                 <label>Descripción</label>
                 <textarea name="descripcion" required><?php echo htmlspecialchars($noticia['contenido']); ?></textarea>
             </div>
- 
+                <div class="input-group">
+                <label>Categoría</label>
+                <select name="categoria" required>
+                <option value="Historia" <?php if($noticia['categoria']=="Historia") echo "selected"; ?>>Historia</option>
+                <option value="Cultura" <?php if($noticia['categoria']=="Cultura") echo "selected"; ?>>Cultura</option>
+                <option value="Eventos" <?php if($noticia['categoria']=="Eventos") echo "selected"; ?>>Eventos</option>
+                <option value="Turismo" <?php if($noticia['categoria']=="Turismo") echo "selected"; ?>>Turismo</option>
+                <option value="Educación" <?php if($noticia['categoria']=="Educación") echo "selected"; ?>>Educación</option>
+                </select>
+                </div>
             <?php if (!empty($noticia['imagen'])): ?>
             <div class="input-group">
                 <label>Imagen actual</label>

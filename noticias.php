@@ -54,7 +54,8 @@ $resultado = mysqli_query($conn, $sql);
               $titulo    = htmlspecialchars($noticia["titulo"]);
               $contenido = htmlspecialchars($noticia["contenido"]);
               $imagen    = $noticia["imagen"];
- 
+              $categoria = htmlspecialchars($noticia["categoria"] ?? "General");
+              $fecha     = $noticia["fecha_publicacion"];
               if (!empty($imagen)) {
                   $rutaImagen = "img/noticias/" . htmlspecialchars($imagen);
               } else {
@@ -71,8 +72,20 @@ $resultado = mysqli_query($conn, $sql);
                   <img src="<?php echo $rutaImagen; ?>" alt="<?php echo $titulo; ?>">
                 </div>
                 <div class="feed-info">
-                  <span class="tag tag-evento">Noticia</span>
+                  <span class="tag tag-evento">
+                  <?php echo $categoria; ?>
+                  </span>
                   <h3><?php echo $titulo; ?></h3>
+                  <h3><?php echo $titulo; ?></h3>
+                  <p class="fecha-noticia">
+                  <?php
+                  if(!empty($fecha)){
+                      echo date("d/m/Y", strtotime($fecha));
+                  }else{
+                      echo "Sin fecha";
+                  }
+                  ?>
+                  </p>
                   <p><?php echo $resumen; ?></p>
                   <a href="ver_noticia.php?id=<?php echo $noticia['id_noticia']; ?>" class="btn-leer-mas">Leer más →</a>
                 </div>
