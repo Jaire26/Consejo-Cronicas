@@ -53,7 +53,7 @@ $resultado = mysqli_query($conn, $sql);
 
     <div class="cards">
     <?php 
-    // Traductor de meses para que salgan en español (Ene, Feb, etc.)
+    
     $meses_es = array("Jan" => "Ene", "Feb" => "Feb", "Mar" => "Mar", "Apr" => "Abr", "May" => "May", "Jun" => "Jun", "Jul" => "Jul", "Aug" => "Ago", "Sep" => "Sep", "Oct" => "Oct", "Nov" => "Nov", "Dec" => "Dic");
 
     // 3. Ciclo para mostrar las crónicas de forma dinámica
@@ -106,8 +106,6 @@ $resultado = mysqli_query($conn, $sql);
 
 </div>
       <?php include("componentes/footer.php"); ?>
-
-
 
   <script src="js/leercronica.js"></script>
 </body>
