@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="edit-container-wrapper">
 
         <div class="btn-volver-container">
-            <a href="historiaadmin.php" class="btn-volver-fixed" style="position: static; display: inline-block;">
+            <a href="historiaadmin.php" class="btn-volver-fixed;">
                  ← Volver
             </a>
         </div>
