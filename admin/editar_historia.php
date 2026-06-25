@@ -80,22 +80,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
-    /* Estilo exacto para el botón Volver ovalado y blanco */
-    .btn-volver-personalizado {
-        display: inline-block;
-        background-color: #fff;
-        color: #000;
-        padding: 12px 30px;
-        border-radius: 50px; /* Hace el botón ovalado */
+    /* Contenedor del botón para aislarlo y evitar que se estire */
+    .contenedor-volver-fijo {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    /* El botón compacto exacto que querías */
+    .btn-volver-corto {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        color: #000000;
+        padding: 10px 24px;
+        border-radius: 50px;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: 600;
+        font-size: 14px;
         font-family: 'Poppins', sans-serif;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        margin-bottom: 25px;
-        transition: background 0.3s ease;
+        width: max-content; /* Fuerza al elemento a medir solo lo necesario */
+        transition: background-color 0.2s ease;
     }
-    .btn-volver-personalizado:hover {
-        background-color: #f5f5f5;
+
+    .btn-volver-corto:hover {
+        background-color: #f7f7f7;
     }
 </style>
 </head>
@@ -120,9 +131,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="main-content" style="padding: 30px;">
 
-    <a href="historiaadmin.php" class="btn-volver-personalizado">
-         ← Volver
-    </a>
+    <div class="contenedor-volver-fijo">
+        <a href="historiaadmin.php" class="btn-volver-corto">
+             ← Volver
+        </a>
+    </div>
 
     <div class="upload-card">
 
