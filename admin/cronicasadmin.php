@@ -189,22 +189,6 @@ $resultado = mysqli_query($conn, $sql);
 
 <?php include("../componentes/footer.php"); ?>
 <script src="../js/leercronica.js"></script>
-
-<script>
-  // Buscador
-  document.getElementById('inputBusqueda').addEventListener('keyup', function() {
-      let filtro = this.value.toLowerCase();
-      let tarjetas = document.querySelectorAll('.cronica-card');
-
-      tarjetas.forEach(function(tarjeta) {
-          let titulo = tarjeta.querySelector('.cronica-titulo').textContent.toLowerCase();
-          if (titulo.includes(filtro)) {
-              tarjeta.style.display = "";
-          } else {
-              tarjeta.style.display = "none";
-          }
-      });
-  });
-</script>
+<script src="../js/buscador.js"></script>
 </body>
 </html>

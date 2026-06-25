@@ -182,5 +182,7 @@ $resultado = mysqli_query($conn, $query);
         }
     });
 </script>
+
+<script src="../js/buscador.js"></script>
 </body>
 </html>

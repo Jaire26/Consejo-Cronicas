@@ -101,21 +101,7 @@ $resultado = mysqli_query($conn, $sql);
 
   <?php include("../componentes/footer.php"); ?>
 
-  <script>
-    document.getElementById('inputBusqueda').addEventListener('keyup', function() {
-        let filtro = this.value.toLowerCase();
-        let tarjetas = document.querySelectorAll('.historia-card');
-
-        tarjetas.forEach(function(tarjeta) {
-            let titulo = tarjeta.querySelector('.historia-titulo').textContent.toLowerCase();
-            if (titulo.includes(filtro)) {
-                tarjeta.style.display = "";
-            } else {
-                tarjeta.style.display = "none";
-            }
-        });
-    });
-  </script>
+  <script src="../js/buscador.js"></script>
 
 </body>
 </html>

@@ -146,5 +146,6 @@ $resultado = mysqli_query($conn, $query);
  
   <?php include("../componentes/footer.php"); ?>
   <script src="../js/galeria.js"></script>
+  <script src="../js/buscador.js"></script>
 </body>
 </html>
