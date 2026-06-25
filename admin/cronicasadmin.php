@@ -155,7 +155,7 @@ $resultado = mysqli_query($conn, $sql);
                                 data-autor="<?php echo htmlspecialchars($cronicas['autor']); ?>"
                                 data-fecha="<?php echo $fecha_es; ?>"
                                 data-contenido="<?php echo htmlspecialchars($cronicas['contenido']); ?>">
-                            Leer
+                            Leer Crónica
                         </button>
                         
                         <a href="editar_cronica.php?id=<?php echo $cronicas['id_cronica']; ?>" class="btn-pill btn-editar-cronica">
