@@ -6,127 +6,155 @@ if (!isset($_SESSION["id_usuario"])) {
 }
 include("../conexion/conexion.php");
 
-// Verificamos que venga un ID válido
-if (!isset($_GET['id'])) {
+// Traer la configuración (para el logo dinámico)
+$query_conf = "SELECT * FROM configuracion WHERE id = 1";
+$res_conf = mysqli_query($conn, $query_conf);
+$config = mysqli_fetch_assoc($res_conf);
+
+// Validar que llegó un id válido
+if (!isset($_GET["id"]) && !isset($_POST["id_historia"])) {
     header("Location: historiaadmin.php");
     exit();
 }
 
-$id = intval($_GET['id']);
+$id_historia = isset($_POST["id_historia"]) ? intval($_POST["id_historia"]) : intval($_GET["id"]);
 
-// Obtener datos actuales de la historia
-$query = "SELECT * FROM historias WHERE id = $id";
-$resultado = mysqli_query($conn, $query);
+// Si se envió el formulario, actualizamos
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $titulo = mysqli_real_escape_string($conn, $_POST["titulo"]);
+    $descripcion = mysqli_real_escape_string($conn, $_POST["descripcion"]);
+
+    // Traer la imagen actual por si no se sube una nueva
+    $sql_actual = "SELECT imagen FROM historias WHERE id = $id_historia";
+    $res_actual = mysqli_query($conn, $sql_actual);
+    $fila_actual = mysqli_fetch_assoc($res_actual);
+    $imagen = $fila_actual["imagen"];
+
+    // Si se sube una nueva imagen, la procesamos y borramos la anterior
+    if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
+        $carpeta = "../img/";
+
+        if (!file_exists($carpeta)) {
+            mkdir($carpeta, 0777, true);
+        }
+
+        $nuevaImagen = time() . "_" . basename($_FILES["imagen"]["name"]);
+
+        if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $carpeta . $nuevaImagen)) {
+            // Borrar la imagen vieja si existía
+            if (!empty($imagen) && file_exists($carpeta . $imagen)) {
+                unlink($carpeta . $imagen);
+            }
+            $imagen = $nuevaImagen;
+        }
+    }
+    
+    $sql = "UPDATE historias 
+            SET titulo = '$titulo', 
+                descripcion = '$descripcion', 
+                imagen = '$imagen' 
+            WHERE id = $id_historia";
+
+    if (mysqli_query($conn, $sql)) {
+        header("Location: historiaadmin.php");
+        exit();
+    } else {
+        echo "Error al actualizar: " . mysqli_error($conn);
+        exit();
+    }
+}
+
+// Traer los datos actuales de la historia para mostrarlos en el formulario
+$sql = "SELECT * FROM historias WHERE id = $id_historia";
+$resultado = mysqli_query($conn, $sql);
 $historia = mysqli_fetch_assoc($resultado);
 
 if (!$historia) {
-    echo "<script>alert('La historia no existe.'); window.location.href='historiaadmin.php';</script>";
+    header("Location: historiaadmin.php");
     exit();
 }
-
-// Procesar el formulario al enviar (POST)
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = mysqli_real_escape_with_str = mysqli_real_escape_string($conn, $_POST['titulo']);
-    $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
-    $nombre_imagen = $historia['imagen']; // Dejar la imagen actual por defecto
-
-    // Si subieron una nueva imagen
-    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
-        $permitidos = array("jpg", "jpeg", "png", "gif", "webp");
-        $ext = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-        
-        if (in_array(strtolower($ext), $permitidos)) {
-            // Generamos un nombre único para evitar duplicados
-            $nuevo_nombre = time() . "_" . $_FILES['imagen']['name'];
-            $ruta_destino = "../img/" . $nuevo_nombre;
-            
-            if (move_uploaded_file($_FILES['imagen']['tmp_temp'] ?? $_FILES['imagen']['tmp_name'], $ruta_destino)) {
-                // Borramos la imagen vieja física
-                if (!empty($historia['imagen']) && file_exists("../img/" . $historia['imagen'])) {
-                    unlink("../img/" . $historia['imagen']);
-                }
-                $nombre_imagen = $nuevo_nombre;
-            }
-        }
-    }
-
-    // Actualizar base de datos
-    $sql_update = "UPDATE historias SET titulo='$titulo', descripcion='$descripcion', imagen='$nombre_imagen' WHERE id=$id";
-    
-    if (mysqli_query($conn, $sql_update)) {
-        echo "<script>alert('Historia actualizada con éxito.'); window.location.href='historiaadmin.php';</script>";
-        exit();
-    } else {
-        $error = "Error al actualizar los datos: " . mysqli_error($conn);
-    }
-}
-
-// Configuración general para el diseño base
-$query_conf = "SELECT * FROM configuracion WHERE id = 1";
-$res_conf = mysqli_query($conn, $query_conf);
-$config = mysqli_fetch_assoc($res_conf);
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Editar Historia</title>
-  <link rel="stylesheet" href="../css/catalogo.css">
-  <style>
-    .form-container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      max-width: 600px;
-      margin: 20px auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #444; }
-    .form-group input[type="text"], .form-group textarea {
-      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
-    }
-    .img-preview { width: 150px; display: block; margin-top: 10px; border-radius: 4px; }
-    .btn-submit {
-      background: #ffc107; color: #000; padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;
-    }
-    .btn-cancel {
-      background: #6c757d; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; text-decoration: none; font-weight: bold; margin-left: 10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editar Historia</title>
+<link rel="stylesheet" href="../css/catalogo.css">
+<link rel="stylesheet" href="../css/galeriaadmin.css">
+<link rel="stylesheet" href="../css/subir.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="main-content" style="margin-left: 0; padding: 20px;">
-    <div class="form-container">
-      <h2>Modificar Historia</h2>
-      <p style="color: #666; margin-bottom: 25px;">Edita los campos necesarios de la publicación.</p>
-
-      <?php if(isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-
-      <form action="" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="titulo">Título de la Historia</label>
-          <input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($historia['titulo']); ?>" required>
-        </div>
-
-        <div class="form-group">
-          <label for="descripcion">Descripción / Contenido</label>
-          <textarea id="descripcion" name="descripcion" rows="6" required><?php echo htmlspecialchars($historia['descripcion']); ?></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="imagen">Imagen Ilustrativa</label>
-          <input type="file" id="imagen" name="imagen" accept="image/*">
-          <small style="display:block; color:#777; margin-top:5px;">Deja este espacio vacío si no deseas cambiar la imagen actual.</small>
-          <img src="../img/<?php echo $historia['imagen']; ?>" class="img-preview" alt="Vista previa actual">
-        </div>
-
-        <button type="submit" class="btn-submit">Guardar Cambios</button>
-        <a href="historiaadmin.php" class="btn-cancel">Cancelar</a>
-      </form>
+ <nav id="sidebar">
+    <div class="logo">
+      <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
     </div>
-  </div>
+  <ul class="menu">
+    <li><a href="index.php">Inicio</a></li>
+    <li><a href="historiaadmin.php">Historia</a></li>
+    <li><a href="cronicasadmin.php">Crónicas</a></li>
+    <li><a href="galeriaadmin.php">Galería</a></li>
+    <li><a href="eventosadmin.php">Eventos</a></li>
+    <li><a href="perfilesadmin.php">Perfiles</a></li>
+    <li><a href="noticiasadmin.php">Noticias</a></li>
+    <li><a href="entrevistasadmin.php">Entrevistas</a></li>
+    <li><a href="editar_footer.php">Editar logo y datos</a></li>
+  </ul>
+</nav>
+
+<div class="main-content">
+
+    <a href="historiaadmin.php" class="btn-volver-fixed">
+         ← Volver
+    </a>
+
+    <div class="upload-card">
+
+        <h1>Editar Historia</h1>
+        <p>Actualiza el contenido de esta publicación histórica.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" name="id_historia" value="<?php echo $historia['id']; ?>">
+
+            <div class="input-group">
+                <label>Título</label>
+                <input type="text" name="titulo" required value="<?php echo htmlspecialchars($historia['titulo']); ?>">
+            </div>
+
+            <div class="input-group">
+                <label>Descripción</label>
+                <textarea name="descripcion" required><?php echo htmlspecialchars($historia['descripcion']); ?></textarea>
+            </div>
+
+            <?php if (!empty($historia['imagen'])): ?>
+            <div class="input-group">
+                <label>Imagen actual</label>
+                <img src="../img/<?php echo htmlspecialchars($historia['imagen']); ?>"
+                     alt="Imagen actual"
+                     style="max-width:220px; border-radius:10px; display:block; margin-top:8px;">
+            </div>
+            <?php endif; ?>
+
+            <div class="input-group">
+                <label>Cambiar imagen (opcional)</label>
+                <input type="file" name="imagen" accept="image/*">
+            </div>
+
+            <button type="submit" class="btn-upload">
+                Guardar Cambios
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 </body>
 </html>

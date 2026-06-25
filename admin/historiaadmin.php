@@ -23,28 +23,6 @@ $resultado = mysqli_query($conn, $sql);
   <title>Historia - Admin</title>
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
-  <style>
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    .btn-edit, .btn-delete {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.9em;
-      text-align: center;
-      flex: 1;
-    }
-    .btn-edit { background-color: #F1D8B8;  color: #000; }
-    .btn-delete { background-color: #B56A2B; color: # ; }
-    .btn-edit:hover { background-color: #D38C3A;; }
-    .btn-delete:hover { background-color: #3E1613}
-  </style>
 </head>
 <body>
 
@@ -52,7 +30,6 @@ $resultado = mysqli_query($conn, $sql);
     <div class="logo">
       <img src="../img/<?php echo $config['logo']; ?>" alt="Logo">
     </div>
-    
     <ul class="menu">
       <li><a href="index.php">Inicio</a></li>
       <li><a href="historiaadmin.php">Historia</a></li>
@@ -92,9 +69,13 @@ $resultado = mysqli_query($conn, $sql);
                         <p><?php echo htmlspecialchars($historias['descripcion']); ?></p>
                         <small>Publicado el <?php echo date("d/m/Y", strtotime($historias['fecha_creacion'])); ?></small>
 
-                        <div class="card-actions">
-                            <a href="editar_historia.php?id=<?php echo $historias['id']; ?>" class="btn-edit">Modificar</a>
-                            <a href="eliminar_historia.php?id=<?php echo $historias['id']; ?>" class="btn-delete" onclick="return confirm('¿Seguro que deseas eliminar esta historia?');">Eliminar</a>
+                        <div class="feed-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+                            <a href="editar_historia.php?id=<?php echo $historias['id']; ?>" class="btn-editar">Editar</a>
+                            <a href="eliminar_historia.php?id=<?php echo $historias['id']; ?>" 
+                               class="btn-borrar" 
+                               onclick="return confirm('¿Seguro que quieres borrar esta historia? Esta acción no se puede deshacer.');">
+                               Borrar
+                            </a>
                         </div>
                     </div>
                 </div>
