@@ -1,3 +1,4 @@
+
 <?php
 include("conexion/conexion.php");
  
@@ -76,7 +77,6 @@ $resultado = mysqli_query($conn, $sql);
                   <?php echo $categoria; ?>
                   </span>
                   <h3><?php echo $titulo; ?></h3>
-                  <h3><?php echo $titulo; ?></h3>
                   <p class="fecha-noticia">
                   <?php
                   if(!empty($fecha)){
@@ -128,4 +128,3 @@ $resultado = mysqli_query($conn, $sql);
  
 </body>
 </html>
- 
