@@ -639,13 +639,20 @@ footer p{
   color: var(--color1);
 }
  
-.noticia-titulo {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--color1);
-  margin: 14px 0 25px;
-  line-height: 1.25;
+.noticia-card {
+  background: #fff;
+  border: 1px solid rgba(211,140,58,.18);
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.07);
+}
+
+.noticia-fecha {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #9a7a5a;
+  margin-bottom: 25px;
 }
  
 .noticia-imagen-principal img {
@@ -695,22 +702,25 @@ footer p{
     padding: 40px 6%;
   }
   .noticia-titulo {
-    font-size: 1.6rem;
-  }
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color1);
+  margin: 0 0 8px;   /* ← ya cambiada */
+  line-height: 1.25;
 }
  
 @media (max-width: 700px) {
-  .feed-card {
-    flex-direction: column !important;
-    padding: 16px;
+  .noticia-detalle {
+    padding: 40px 6%;
   }
-  .feed-image {
-    flex: 1 1 100%;
-    max-width: 100%;
+  .noticia-titulo {
+    font-size: 1.6rem;
   }
-  .feed-info h3 {
-    font-size: 1.3rem;
+  .noticia-card {
+    padding: 24px;
   }
+}
 }/* ==========================================================================
    Estilos específicos para el módulo de Historia (No afectan a otros módulos)
    ========================================================================== */
