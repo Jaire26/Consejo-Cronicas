@@ -46,7 +46,7 @@ $resultado = mysqli_query($conn, $sql);
       </div>
 
       <div class="search-box">
-        <input type="text" placeholder="Buscar...">
+        <input type="text" placeholder="Buscar por titulo...">
       </div>
 
       <div class="cards">
@@ -83,5 +83,7 @@ $resultado = mysqli_query($conn, $sql);
   </div>
   
   <?php include("componentes/footer.php"); ?>
+
+  <script src="../js/buscador.js"></script>
 </body>
 </html>
