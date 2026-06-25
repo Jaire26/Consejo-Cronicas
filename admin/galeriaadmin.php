@@ -6,7 +6,7 @@ if (!isset($_SESSION["id_usuario"])) {
 }
 include("../conexion/conexion.php");
 
-// 1. CONSULTA DE CONFIGURACIÓN (Agregada para que funcione el logo)
+// 1. CONSULTA DE CONFIGURACIÓN
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
@@ -24,6 +24,55 @@ $resultado = mysqli_query($conn, $query);
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
   <link rel="stylesheet" href="../css/verfoto.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Contenedor de botones peques estilo cápsula */
+    .acciones-galeria {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .btn-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        width: auto;
+    }
+
+    /* Estilo idéntico a tus capturas */
+    .btn-editar-galeria {
+        background-color: #fdf3e7;
+        color: #a66b37;
+    }
+    .btn-editar-galeria:hover {
+        background-color: #f8e7d2;
+    }
+
+    .btn-borrar-galeria {
+        background-color: #f9ebeb;
+        color: #9b4343;
+    }
+    .btn-borrar-galeria:hover {
+        background-color: #f2d7d7;
+    }
+  </style>
 </head>
 <body>
 
@@ -53,14 +102,24 @@ $resultado = mysqli_query($conn, $query);
   </div>
 
   <div class="gallery">
-  
     <?php while($foto = mysqli_fetch_assoc($resultado)) { ?>
-        <div class="gallery-item-container" style="position:relative; display:inline-block;">
+        <div class="gallery-item-container" style="display: flex; flex-direction: column; align-items: center;">
             <img 
               src="../img/<?php echo htmlspecialchars($foto['ruta_imagen']); ?>" 
               data-title="<?php echo htmlspecialchars($foto['titulo']); ?>" 
               data-description="<?php echo htmlspecialchars($foto['descripcion']); ?>"
+              style="cursor: pointer;"
             >
+            <div class="acciones-galeria">
+                <a href="editar_galeria.php?id=<?php echo $foto['id_galeria']; ?>" class="btn-pill btn-editar-galeria">
+                    Editar
+                </a>
+                <a href="eliminar_galeria.php?id=<?php echo $foto['id_galeria']; ?>" 
+                   class="btn-pill btn-borrar-galeria" 
+                   onclick="return confirm('¿Seguro que deseas eliminar esta imagen de la galería?');">
+                    Borrar
+                </a>
+            </div>
         </div>
     <?php } ?>
   </div>
@@ -74,7 +133,7 @@ $resultado = mysqli_query($conn, $query);
     </div>
   </div>
 
-  <div class="card admin-card">
+  <div class="card admin-card" style="margin-top: 30px;">
     <div class="card-content">
         <h3>Agregar Contenido</h3>
         <p>Administre la galeria.</p>
