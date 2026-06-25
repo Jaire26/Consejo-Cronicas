@@ -1,4 +1,3 @@
-
 <?php
 include("conexion/conexion.php");
  
@@ -79,7 +78,7 @@ $resultado = mysqli_query($conn, $sql);
                   <h3><?php echo $titulo; ?></h3>
                   <p class="fecha-noticia">
                   <?php
-                  if(!empty($fecha)){
+                  if(!empty($fecha) && $fecha !== "0000-00-00"){
                       echo date("d/m/Y", strtotime($fecha));
                   }else{
                       echo "Sin fecha";
@@ -128,3 +127,4 @@ $resultado = mysqli_query($conn, $sql);
  
 </body>
 </html>
+ 

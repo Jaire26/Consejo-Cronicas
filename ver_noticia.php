@@ -24,6 +24,7 @@ $res_galeria = mysqli_query($conn, $sql_galeria);
 $titulo    = htmlspecialchars($noticia["titulo"]);
 $contenido = htmlspecialchars($noticia["contenido"]);
 $imagen    = $noticia["imagen"];
+$fecha     = $noticia["fecha_publicacion"] ?? null;
  
 if (!empty($imagen)) {
     $rutaPortada = "img/noticias/" . htmlspecialchars($imagen);
@@ -37,7 +38,7 @@ if (!empty($imagen)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo $titulo; ?></title>
-  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/catalogo.css?v=3">
 </head>
 <body>
  
@@ -64,25 +65,36 @@ if (!empty($imagen)) {
  
     <a href="noticias.php" class="btn-volver-noticia">← Volver a Noticias</a>
  
-    <span class="tag tag-evento">Noticia</span>
-    <h1 class="noticia-titulo"><?php echo $titulo; ?></h1>
+    <div class="noticia-card">
  
-    <div class="noticia-imagen-principal">
-      <img src="<?php echo $rutaPortada; ?>" alt="<?php echo $titulo; ?>">
-    </div>
+      <h1 class="noticia-titulo"><?php echo $titulo; ?></h1>
  
-    <div class="noticia-contenido">
-      <?php echo nl2br($contenido); ?>
-    </div>
+      <p class="noticia-fecha">
+        <?php
+        if (!empty($fecha) && $fecha !== "0000-00-00") {
+            echo date("d/m/Y", strtotime($fecha));
+        }
+        ?>
+      </p>
  
-    <?php if (mysqli_num_rows($res_galeria) > 0): ?>
-    <div class="noticia-galeria-titulo">Galería de imágenes</div>
-    <div class="noticia-galeria">
-      <?php while ($img = mysqli_fetch_assoc($res_galeria)): ?>
-        <img src="img/noticias/<?php echo htmlspecialchars($img['imagen']); ?>" alt="Imagen de la noticia">
-      <?php endwhile; ?>
+      <div class="noticia-imagen-principal">
+        <img src="<?php echo $rutaPortada; ?>" alt="<?php echo $titulo; ?>">
+      </div>
+ 
+      <div class="noticia-contenido">
+        <?php echo nl2br($contenido); ?>
+      </div>
+ 
+      <?php if (mysqli_num_rows($res_galeria) > 0): ?>
+      <div class="noticia-galeria-titulo">Galería de imágenes</div>
+      <div class="noticia-galeria">
+        <?php while ($img = mysqli_fetch_assoc($res_galeria)): ?>
+          <img src="img/noticias/<?php echo htmlspecialchars($img['imagen']); ?>" alt="Imagen de la noticia">
+        <?php endwhile; ?>
+      </div>
+      <?php endif; ?>
+ 
     </div>
-    <?php endif; ?>
  
   </section>
 </div>
@@ -100,4 +112,3 @@ if (!empty($imagen)) {
  
 </body>
 </html>
- 
