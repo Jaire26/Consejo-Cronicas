@@ -25,6 +25,57 @@ $resultado = mysqli_query($conn, $sql);
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
   <link rel="stylesheet" href="../css/vercronica.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .btn-cronica-mini {
+        width: 100%;
+        background-color: #f1ebd9;
+        color: #333;
+        border: 1px solid #ccc;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    .btn-cronica-mini:hover {
+        background-color: #e5dec9;
+    }
+    .btn-editar-mini {
+        background-color: #fcefdc;
+        color: #c67a26;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.2s;
+    }
+    .btn-editar-mini:hover {
+        background-color: #f3e2c7;
+    }
+    .btn-borrar-mini {
+        background-color: #f9ebeb;
+        color: #a93232;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.2s;
+    }
+    .btn-borrar-mini:hover {
+        background-color: #eed6d6;
+    }
+  </style>
 </head>
 <body>
 
@@ -83,8 +134,8 @@ $resultado = mysqli_query($conn, $sql);
                     <?php echo htmlspecialchars($cronicas['resumen']); ?>
                 </p>
 
-                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    <button class="btn-cronica" 
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 8px;">
+                    <button class="btn-cronica-mini" 
                             onclick="mostrarCronica(this)"
                             data-titulo="<?php echo htmlspecialchars($cronicas['titulo']); ?>"
                             data-autor="<?php echo htmlspecialchars($cronicas['autor']); ?>"
@@ -93,11 +144,11 @@ $resultado = mysqli_query($conn, $sql);
                         Leer Crónica
                     </button>
                     
-                    <div class="feed-actions" style="display: flex; gap: 10px; width: 100%;">
-                        <a href="editar_cronica.php?id=<?php echo $cronicas['id_cronica']; ?>" class="btn-editar" style="flex: 1; text-align: center; text-decoration: none;">Editar</a>
+                    <div class="feed-actions" style="display: flex; gap: 8px; justify-content: space-between; width: 100%;">
+                        <a href="editar_cronica.php?id=<?php echo $cronicas['id_cronica']; ?>" class="btn-editar-mini" style="flex: 1;">Editar</a>
                         <a href="eliminar_cronica.php?id=<?php echo $cronicas['id_cronica']; ?>" 
-                           class="btn-borrar" 
-                           style="flex: 1; text-align: center; text-decoration: none;"
+                           class="btn-borrar-mini" 
+                           style="flex: 1;"
                            onclick="return confirm('¿Seguro que quieres borrar esta crónica? Esta acción no se puede deshacer.');">
                            Borrar
                         </a>
