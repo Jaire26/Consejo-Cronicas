@@ -69,14 +69,18 @@ if (!empty($imagen)) {
  
       <h1 class="noticia-titulo"><?php echo $titulo; ?></h1>
  
+      <div class="noticia-meta-container">
+      <span class="card-tag">Noticia</span>
       <p class="noticia-fecha">
-        <?php
-        if (!empty($fecha) && $fecha !== "0000-00-00") {
-            echo date("d/m/Y", strtotime($fecha));
-        }
-        ?>
+      <?php
+      if (!empty($fecha) && $fecha !== "0000-00-00") {
+        echo "Publicado el: " . date("d/m/Y", strtotime($fecha));
+      } else {
+        echo "Sin fecha";
+      }
+      ?>
       </p>
- 
+      </div>
       <div class="noticia-imagen-principal">
         <img src="<?php echo $rutaPortada; ?>" alt="<?php echo $titulo; ?>">
       </div>
