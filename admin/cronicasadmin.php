@@ -5,10 +5,9 @@ if (!isset($_SESSION["id_usuario"])) {
     exit();
 }
 
-// 1. PRIMERO LO PRIMERO: Conectar e ir por los datos
 include("../conexion/conexion.php");
 
-// TRAEMOS LA CONFIGURACIÓN (Para el logo que se pinta abajo)
+// TRAEMOS LA CONFIGURACIÓN
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
@@ -23,7 +22,6 @@ $resultado = mysqli_query($conn, $sql);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crónicas - Admin</title>
-
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
   <link rel="stylesheet" href="../css/vercronica.css">
@@ -56,7 +54,7 @@ $resultado = mysqli_query($conn, $sql);
     </div>
 
     <div class="search-box">
-       <input type="text" placeholder="Buscar...">
+       <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
     </div>
 
     <div class="cards">
@@ -75,7 +73,7 @@ $resultado = mysqli_query($conn, $sql);
                 <span class="cronica-fecha">
                     <?php echo $fecha_es; ?>
                 </span>
-                <h3>
+                <h3 class="cronica-titulo">
                     <?php echo htmlspecialchars($cronicas['titulo']); ?>
                 </h3>
                 <h4>
@@ -85,14 +83,26 @@ $resultado = mysqli_query($conn, $sql);
                     <?php echo htmlspecialchars($cronicas['resumen']); ?>
                 </p>
 
-                <button class="btn-cronica" 
-                        onclick="mostrarCronica(this)"
-                        data-titulo="<?php echo htmlspecialchars($cronicas['titulo']); ?>"
-                        data-autor="<?php echo htmlspecialchars($cronicas['autor']); ?>"
-                        data-fecha="<?php echo $fecha_es; ?>"
-                        data-contenido="<?php echo htmlspecialchars($cronicas['contenido']); ?>">
-                    Leer Crónica
-                </button>
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn-cronica" 
+                            onclick="mostrarCronica(this)"
+                            data-titulo="<?php echo htmlspecialchars($cronicas['titulo']); ?>"
+                            data-autor="<?php echo htmlspecialchars($cronicas['autor']); ?>"
+                            data-fecha="<?php echo $fecha_es; ?>"
+                            data-contenido="<?php echo htmlspecialchars($cronicas['contenido']); ?>">
+                        Leer Crónica
+                    </button>
+                    
+                    <div class="feed-actions" style="display: flex; gap: 10px; width: 100%;">
+                        <a href="editar_cronica.php?id=<?php echo $cronicas['id_cronica']; ?>" class="btn-editar" style="flex: 1; text-align: center; text-decoration: none;">Editar</a>
+                        <a href="eliminar_cronica.php?id=<?php echo $cronicas['id_cronica']; ?>" 
+                           class="btn-borrar" 
+                           style="flex: 1; text-align: center; text-decoration: none;"
+                           onclick="return confirm('¿Seguro que quieres borrar esta crónica? Esta acción no se puede deshacer.');">
+                           Borrar
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     <?php } ?>
@@ -111,5 +121,22 @@ $resultado = mysqli_query($conn, $sql);
 
 <?php include("../componentes/footer.php"); ?>
 <script src="../js/leercronica.js"></script>
+
+<script>
+  // Buscador en tiempo real por título
+  document.getElementById('inputBusqueda').addEventListener('keyup', function() {
+      let filtro = this.value.toLowerCase();
+      let tarjetas = document.querySelectorAll('.cronica-card');
+
+      tarjetas.forEach(function(tarjeta) {
+          let titulo = tarjeta.querySelector('.cronica-titulo').textContent.toLowerCase();
+          if (titulo.includes(filtro)) {
+              tarjeta.style.display = "";
+          } else {
+              tarjeta.style.display = "none";
+          }
+      });
+  });
+</script>
 </body>
 </html>
