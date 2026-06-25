@@ -10,13 +10,17 @@ include("../conexion/conexion.php");
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
+
+// 2. Traer las historias
+$sql = "SELECT * FROM historias ORDER BY fecha_creacion DESC";
+$resultado = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Historia</title>
+  <title>Historia - Admin</title>
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
 </head>
@@ -52,44 +56,35 @@ $config = mysqli_fetch_assoc($res_conf);
         <input type="text" placeholder="Buscar...">
       </div>
 
-      <?php
-    include("../conexion/conexion.php");
+      <div class="cards">
+        
+        <?php 
+        // Agregamos la validación idéntica al público para proteger la estructura
+        if (mysqli_num_rows($resultado) > 0) {
+            while($historias = mysqli_fetch_assoc($resultado)) { 
+        ?>
+                <div class="card">
+                    <img src="../img/<?php echo $historias['imagen']; ?>" alt="Historia">
 
-      $sql = "SELECT * FROM historias ORDER BY fecha_creacion DESC";
-      $resultado = mysqli_query($conn, $sql);
-      ?>
-<div class="cards">
-<?php while($historias = mysqli_fetch_assoc($resultado)) { ?>
+                    <div class="card-content">
+                        <h3>
+                            <?php echo htmlspecialchars($historias['titulo']); ?>
+                        </h3>
+                        <p>
+                            <?php echo htmlspecialchars($historias['descripcion']); ?>
+                        </p>
+                        <small>
+                            Publicado el <?php echo date("d/m/Y", strtotime($historias['fecha_creacion'])); ?>
+                        </small>
+                    </div>
+                </div>
+        <?php 
+            } 
+        } else {
+            echo "<p style='grid-column: 1/-1; text-align: center; color: #666;'>No hay historias registradas.</p>";
+        }
+        ?>
 
-    <div class="card">
-
-        <img src="../img/<?php echo $historias['imagen']; ?>" alt="Historia">
-
-        <div class="card-content">
-
-            <h3>
-                <?php echo htmlspecialchars($historias['titulo']); ?>
-            </h3>
-
-            <p>
-                <?php echo htmlspecialchars($historias['descripcion']); ?>
-            </p>
-
-            <small>
-                   Publicado el <?php echo date("d/m/Y", strtotime($historias['fecha_creacion'])); ?>
-            </small>
-
-            <small>
-                <?php echo $historias['fecha_actualizacion']; ?>
-            </small>
-
-        </div>
-
-    </div>
-
-    </div>
-
-<?php } ?>
         <div class="card admin-card">
           <div class="card-content">
               <h3>Agregar Contenido</h3>
@@ -97,9 +92,8 @@ $config = mysqli_fetch_assoc($res_conf);
               <a href="subirhis.php" class="btn-admin">Agregar</a>
           </div>
         </div>
-      </div>
 
-    </section>
+      </div> </section>
   </div> 
 
   <?php include("../componentes/footer.php"); ?>
