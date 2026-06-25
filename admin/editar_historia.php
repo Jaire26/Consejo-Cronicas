@@ -80,25 +80,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
-    /* Forzar que el contenedor no se meta debajo del sidebar */
-    .edit-container-wrapper {
-        padding: 20px;
-        max-width: 800px;
-        margin: 0 auto;
+    /* Estilo exacto para el botón Volver ovalado y blanco */
+    .btn-volver-personalizado {
+        display: inline-block;
+        background-color: #fff;
+        color: #000;
+        padding: 12px 30px;
+        border-radius: 50px; /* Hace el botón ovalado */
+        text-decoration: none;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 25px;
+        transition: background 0.3s ease;
     }
-    .btn-volver-container {
-        margin-bottom: 20px;
-        display: block;
-    }
-    /* Asegurar que la imagen del formulario no rompa la estructura */
-    .img-formulario-preview {
-        max-width: 100%;
-        height: auto;
-        max-height: 250px;
-        border-radius: 10px;
-        display: block;
-        margin-top: 8px;
-        object-fit: contain;
+    .btn-volver-personalizado:hover {
+        background-color: #f5f5f5;
     }
 </style>
 </head>
@@ -121,55 +118,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </ul>
 </nav>
 
-<div class="main-content">
-    <div class="edit-container-wrapper">
+<div class="main-content" style="padding: 30px;">
 
-        <div class="btn-volver-container">
-            <a href="historiaadmin.php" class="btn-volver-fixed;">
-                 ← Volver
-            </a>
-        </div>
+    <a href="historiaadmin.php" class="btn-volver-personalizado">
+         ← Volver
+    </a>
 
-        <div class="upload-card">
+    <div class="upload-card">
 
-            <h1>Editar Historia</h1>
-            <p>Actualiza el contenido de esta publicación histórica.</p>
+        <h1>Editar Historia</h1>
+        <p>Actualiza el contenido de esta publicación histórica.</p>
 
-            <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
 
-                <input type="hidden" name="id_historia" value="<?php echo $historia['id_historia']; ?>">
+            <input type="hidden" name="id_historia" value="<?php echo $historia['id_historia']; ?>">
 
-                <div class="input-group">
-                    <label>Título</label>
-                    <input type="text" name="titulo" required value="<?php echo htmlspecialchars($historia['titulo']); ?>">
-                </div>
+            <div class="input-group">
+                <label>Título</label>
+                <input type="text" name="titulo" required value="<?php echo htmlspecialchars($historia['titulo']); ?>">
+            </div>
 
-                <div class="input-group">
-                    <label>Descripción</label>
-                    <textarea name="descripcion" required rows="6"><?php echo htmlspecialchars($historia['descripcion']); ?></textarea>
-                </div>
+            <div class="input-group">
+                <label>Descripción</label>
+                <textarea name="descripcion" required rows="6"><?php echo htmlspecialchars($historia['descripcion']); ?></textarea>
+            </div>
 
-                <?php if (!empty($historia['imagen'])): ?>
-                <div class="input-group">
-                    <label>Imagen actual</label>
-                    <img src="../img/<?php echo htmlspecialchars($historia['imagen']); ?>"
-                         alt="Imagen actual"
-                         class="img-formulario-preview">
-                </div>
-                <?php endif; ?>
+            <?php if (!empty($historia['imagen'])): ?>
+            <div class="input-group">
+                <label>Imagen actual</label>
+                <img src="../img/<?php echo htmlspecialchars($historia['imagen']); ?>"
+                     alt="Imagen actual"
+                     style="max-width:220px; border-radius:10px; display:block; margin-top:8px;">
+            </div>
+            <?php endif; ?>
 
-                <div class="input-group">
-                    <label>Cambiar imagen (opcional)</label>
-                    <input type="file" name="imagen" accept="image/*">
-                </div>
+            <div class="input-group">
+                <label>Cambiar imagen (opcional)</label>
+                <input type="file" name="imagen" accept="image/*">
+            </div>
 
-                <button type="submit" class="btn-upload">
-                    Guardar Cambios
-                </button>
+            <button type="submit" class="btn-upload">
+                Guardar Cambios
+            </button>
 
-            </form>
+        </form>
 
-        </div>
     </div>
 </div>
 
