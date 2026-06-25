@@ -6,7 +6,7 @@ if (!isset($_SESSION["id_usuario"])) {
 }
 include("../conexion/conexion.php");
 
-// 1. Traer la configuración saliendo un nivel
+// 1. Traer la configuración
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
@@ -23,6 +23,28 @@ $resultado = mysqli_query($conn, $sql);
   <title>Historia - Admin</title>
   <link rel="stylesheet" href="../css/catalogo.css">
   <link rel="stylesheet" href="../css/galeriaadmin.css">
+  <style>
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .btn-edit, .btn-delete {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9em;
+      text-align: center;
+      flex: 1;
+    }
+    .btn-edit { background-color: #ffc107; color: #000; }
+    .btn-delete { background-color: #dc3545; color: #fff; }
+    .btn-edit:hover { background-color: #e0a800; }
+    .btn-delete:hover { background-color: #bd2130; }
+  </style>
 </head>
 <body>
 
@@ -53,29 +75,27 @@ $resultado = mysqli_query($conn, $sql);
       </div>
 
       <div class="search-box">
-        <input type="text" placeholder="Buscar...">
+        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
       </div>
 
       <div class="cards">
         
         <?php 
-        // Agregamos la validación idéntica al público para proteger la estructura
         if (mysqli_num_rows($resultado) > 0) {
             while($historias = mysqli_fetch_assoc($resultado)) { 
         ?>
-                <div class="card">
+                <div class="card historia-card">
                     <img src="../img/<?php echo $historias['imagen']; ?>" alt="Historia">
 
                     <div class="card-content">
-                        <h3>
-                            <?php echo htmlspecialchars($historias['titulo']); ?>
-                        </h3>
-                        <p>
-                            <?php echo htmlspecialchars($historias['descripcion']); ?>
-                        </p>
-                        <small>
-                            Publicado el <?php echo date("d/m/Y", strtotime($historias['fecha_creacion'])); ?>
-                        </small>
+                        <h3 class="historia-titulo"><?php echo htmlspecialchars($historias['titulo']); ?></h3>
+                        <p><?php echo htmlspecialchars($historias['descripcion']); ?></p>
+                        <small>Publicado el <?php echo date("d/m/Y", strtotime($historias['fecha_creacion'])); ?></small>
+
+                        <div class="card-actions">
+                            <a href="editar_historia.php?id=<?php echo $historias['id']; ?>" class="btn-edit">Modificar</a>
+                            <a href="eliminar_historia.php?id=<?php echo $historias['id']; ?>" class="btn-delete" onclick="return confirm('¿Seguro que deseas eliminar esta historia?');">Eliminar</a>
+                        </div>
                     </div>
                 </div>
         <?php 
@@ -93,10 +113,28 @@ $resultado = mysqli_query($conn, $sql);
           </div>
         </div>
 
-      </div> </section>
+      </div>
+
+    </section>
   </div> 
 
   <?php include("../componentes/footer.php"); ?>
+
+  <script>
+    document.getElementById('inputBusqueda').addEventListener('keyup', function() {
+        let filtro = this.value.toLowerCase();
+        let tarjetas = document.querySelectorAll('.historia-card');
+
+        tarjetas.forEach(function(tarjeta) {
+            let titulo = tarjeta.querySelector('.historia-titulo').textContent.toLowerCase();
+            if (titulo.includes(filtro)) {
+                tarjeta.style.display = "";
+            } else {
+                tarjeta.style.display = "none";
+            }
+        });
+    });
+  </script>
 
 </body>
 </html>
