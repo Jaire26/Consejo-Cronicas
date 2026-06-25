@@ -9,8 +9,8 @@ include("../conexion/conexion.php");
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 
-    // Buscar y eliminar la imagen física del servidor
-    $query_img = "SELECT imagen FROM historias WHERE id = $id";
+    // Buscar y eliminar la imagen física usando id_historia
+    $query_img = "SELECT imagen FROM historias WHERE id_historia = $id";
     $res_img = mysqli_query($conn, $query_img);
     if ($res_img && $row = mysqli_fetch_assoc($res_img)) {
         if (!empty($row['imagen'])) {
@@ -21,8 +21,8 @@ if (isset($_GET['id'])) {
         }
     }
 
-    // Eliminar registro de la base de datos
-    mysqli_query($conn, "DELETE FROM historias WHERE id = $id");
+    // Eliminar de la base de datos por id_historia
+    mysqli_query($conn, "DELETE FROM historias WHERE id_historia = $id");
 }
 
 header("Location: historiaadmin.php");

@@ -1,9 +1,11 @@
 <?php
 session_start();
+
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
+
 include("../conexion/conexion.php");
 
 // Traer la configuración (para el logo dinámico)
@@ -11,7 +13,7 @@ $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
 
-// Validar que llegó un id válido
+// Validar que llegó un id válido por la URL (GET) o formulario (POST)
 if (!isset($_GET["id"]) && !isset($_POST["id_historia"])) {
     header("Location: historiaadmin.php");
     exit();
@@ -19,19 +21,24 @@ if (!isset($_GET["id"]) && !isset($_POST["id_historia"])) {
 
 $id_historia = isset($_POST["id_historia"]) ? intval($_POST["id_historia"]) : intval($_GET["id"]);
 
+// Traer los datos actuales de la historia usando id_historia
+$sql = "SELECT * FROM historias WHERE id_historia = $id_historia";
+$resultado = mysqli_query($conn, $sql);
+$historia = mysqli_fetch_assoc($resultado);
+
+if (!$historia) {
+    header("Location: historiaadmin.php");
+    exit();
+}
+
 // Si se envió el formulario, actualizamos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $titulo = mysqli_real_escape_string($conn, $_POST["titulo"]);
     $descripcion = mysqli_real_escape_string($conn, $_POST["descripcion"]);
+    $imagen = $historia["imagen"]; // Dejar la imagen actual por defecto
 
-    // Traer la imagen actual por si no se sube una nueva
-    $sql_actual = "SELECT imagen FROM historias WHERE id = $id_historia";
-    $res_actual = mysqli_query($conn, $sql_actual);
-    $fila_actual = mysqli_fetch_assoc($res_actual);
-    $imagen = $fila_actual["imagen"];
-
-    // Si se sube una nueva imagen, la procesamos y borramos la anterior
+    // Si se sube una nueva imagen, la procesamos
     if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
         $carpeta = "../img/";
 
@@ -42,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nuevaImagen = time() . "_" . basename($_FILES["imagen"]["name"]);
 
         if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $carpeta . $nuevaImagen)) {
-            // Borrar la imagen vieja si existía
+            // Borrar la imagen vieja si existía para ahorrar espacio
             if (!empty($imagen) && file_exists($carpeta . $imagen)) {
                 unlink($carpeta . $imagen);
             }
@@ -50,29 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     
-    $sql = "UPDATE historias 
-            SET titulo = '$titulo', 
-                descripcion = '$descripcion', 
-                imagen = '$imagen' 
-            WHERE id = $id_historia";
+    // Consulta corregida con id_historia
+    $sql_update = "UPDATE historias SET titulo = '$titulo', descripcion = '$descripcion', imagen = '$imagen' WHERE id_historia = $id_historia";
 
-    if (mysqli_query($conn, $sql)) {
+    if (mysqli_query($conn, $sql_update)) {
         header("Location: historiaadmin.php");
         exit();
     } else {
-        echo "Error al actualizar: " . mysqli_error($conn);
-        exit();
+        die("Error al actualizar en la Base de Datos: " . mysqli_error($conn));
     }
-}
-
-// Traer los datos actuales de la historia para mostrarlos en el formulario
-$sql = "SELECT * FROM historias WHERE id = $id_historia";
-$resultado = mysqli_query($conn, $sql);
-$historia = mysqli_fetch_assoc($resultado);
-
-if (!$historia) {
-    header("Location: historiaadmin.php");
-    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -120,7 +113,7 @@ if (!$historia) {
 
         <form method="POST" enctype="multipart/form-data">
 
-            <input type="hidden" name="id_historia" value="<?php echo $historia['id']; ?>">
+            <input type="hidden" name="id_historia" value="<?php echo $historia['id_historia']; ?>">
 
             <div class="input-group">
                 <label>Título</label>
@@ -129,7 +122,7 @@ if (!$historia) {
 
             <div class="input-group">
                 <label>Descripción</label>
-                <textarea name="descripcion" required><?php echo htmlspecialchars($historia['descripcion']); ?></textarea>
+                <textarea name="descripcion" required rows="6"><?php echo htmlspecialchars($historia['descripcion']); ?></textarea>
             </div>
 
             <?php if (!empty($historia['imagen'])): ?>

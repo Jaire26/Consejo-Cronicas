@@ -70,8 +70,8 @@ $resultado = mysqli_query($conn, $sql);
                         <small>Publicado el <?php echo date("d/m/Y", strtotime($historias['fecha_creacion'])); ?></small>
 
                         <div class="feed-actions" style="margin-top: 15px; display: flex; gap: 10px;">
-                            <a href="editar_historia.php?id=<?php echo $historias['id']; ?>" class="btn-editar">Editar</a>
-                            <a href="eliminar_historia.php?id=<?php echo $historias['id']; ?>" 
+                            <a href="editar_historia.php?id=<?php echo $historias['id_historia']; ?>" class="btn-editar">Editar</a>
+                            <a href="eliminar_historia.php?id=<?php echo $historias['id_historia']; ?>" 
                                class="btn-borrar" 
                                onclick="return confirm('¿Seguro que quieres borrar esta historia? Esta acción no se puede deshacer.');">
                                Borrar
