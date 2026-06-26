@@ -101,6 +101,10 @@ $resultado = mysqli_query($conn, $query);
     <p>Fotografías y recuerdos de Huejutla</p>
   </div>
 
+  <div class="search-box">
+        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
+      </div>
+
   <div class="gallery">
     <?php while($foto = mysqli_fetch_assoc($resultado)) { ?>
         <div class="gallery-item-container" style="display: flex; flex-direction: column; align-items: center;">

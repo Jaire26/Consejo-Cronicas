@@ -44,6 +44,10 @@ $total_imagenes = mysqli_num_rows($resultado);
       <h2>Galería Fotográfica de Huejutla</h2>
     </div>
 
+    <div class="search-box">
+        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
+      </div>
+
     <div class="gallery">
       <?php 
       if ($total_imagenes > 0) {
@@ -74,5 +78,6 @@ $total_imagenes = mysqli_num_rows($resultado);
   <?php include("componentes/footer.php"); ?>
 
 <script src="js/galeria.js"></script>
+<script src="js/buscador.js"></script>
 </body>
 </html>
