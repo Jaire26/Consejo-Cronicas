@@ -41,7 +41,7 @@ $total_imagenes = mysqli_num_rows($resultado);
 <div class="main-content">
   <section class="feed-section">
     <div class="section-title">
-      <h2>Galería Fotográfica de Huejutla</h2>
+      <h2>Galería Cultural</h2>
     </div>
 
     <div class="search-box">
