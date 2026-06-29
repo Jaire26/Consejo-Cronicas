@@ -101,6 +101,7 @@ function generarResumen($texto, $limite = 160) {
     </nav>
  
 <div class="main-content">
+    
     <section id="galeria">
         <div class="section-title">
             <h2>Entrevistas</h2>
@@ -108,9 +109,10 @@ function generarResumen($texto, $limite = 160) {
         </div>
  
         
-      <div class="search-box">
-        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
-      </div>
+        <div class="search-box">
+            <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
+        </div>
+
         
         <div class="contenido" style="width: 100%; max-width: 100%; display: block; box-sizing: border-box;">
             <div class="noticias" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box;">
@@ -151,8 +153,6 @@ function generarResumen($texto, $limite = 160) {
 </div>
  
 <?php include("componentes/footer.php"); ?>
-
-
 <script src="js/buscador.js"></script>
 
 
