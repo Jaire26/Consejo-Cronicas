@@ -116,14 +116,15 @@ $config = mysqli_fetch_assoc($res_conf);
 </section>
  
  <?php include("../componentes/footer.php"); ?>
- 
-<script src="../js/inicio.js"></script>
+
 <script>
 function confirmarCerrarSesion() {
     return confirm("¿Está seguro de que desea cerrar sesión?");
 }
 
 </script>
-<script src="../js/leercronica.js"></script>
+
+<script src="../js/inicio.js"></script>
+
 </body>
 </html>
