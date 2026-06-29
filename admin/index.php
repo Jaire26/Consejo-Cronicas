@@ -43,10 +43,12 @@ $config = mysqli_fetch_assoc($res_conf);
         Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?>
       </span>
  
- 
       <div class="search-box">
         <input type="text" placeholder="Buscar...">
       </div>
+
+
+      
  
        <a href="../conexion/cerrar_sesion.php" class="btn-login" onclick="return confirmarCerrarSesion()"> Cerrar Sesión
 </a>
@@ -120,6 +122,8 @@ $config = mysqli_fetch_assoc($res_conf);
 function confirmarCerrarSesion() {
     return confirm("¿Está seguro de que desea cerrar sesión?");
 }
+
 </script>
+<script src="../js/leercronica.js"></script>
 </body>
 </html>

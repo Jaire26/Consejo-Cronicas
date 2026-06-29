@@ -119,7 +119,6 @@ function generarResumen($texto, $limite = 160) {
             <h2>Entrevistas</h2>
             <p>Conoce Todo Lo Interesante Sobre Temas Relevantes</p>
         </div>
- 
         <div class="search-box">
             <input type="text" placeholder="Buscar...">
         </div>
@@ -172,5 +171,6 @@ function generarResumen($texto, $limite = 160) {
 </div>
  
 <?php include("../componentes/footer.php"); ?>
+<script src="../js/leercronica.js"></script>
 </body>
 </html>

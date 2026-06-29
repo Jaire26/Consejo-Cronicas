@@ -79,10 +79,9 @@ if (!$resultado) {
       <h2>Noticias</h2>
       <p>Entérate de las últimas novedades</p>
     </div>
- 
-    <div class="search-box">
-      <input type="text" placeholder="Buscar...">
-    </div>
+      <div class="search-box">
+        <input type="text" placeholder="Buscar...">
+      </div>
  
     <div class="feed-container">
  
@@ -147,5 +146,7 @@ if (!$resultado) {
 </div>
  
 <?php include("../componentes/footer.php"); ?>
+
+<script src="../js/leercronica.js"></script>
 </body>
 </html>

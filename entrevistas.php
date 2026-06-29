@@ -153,5 +153,7 @@ function generarResumen($texto, $limite = 160) {
 </div>
  
 <?php include("componentes/footer.php"); ?>
+
+  <script src="js/leercronica.js"></script>
 </body>
 </html>

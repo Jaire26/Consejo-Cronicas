@@ -50,7 +50,6 @@ $resultado = mysqli_query($conn, $sql);
       </div>
 
       <div class="cards">
-
 <?php while($historia = mysqli_fetch_assoc($resultado)) { ?>
 
     <div class="card">
@@ -75,13 +74,12 @@ $resultado = mysqli_query($conn, $sql);
         </div>
 
     </div>
-
 <?php } ?>
-
 </div>
     </section>
   </div>
   
   <?php include("componentes/footer.php"); ?>
+<script src="js/galeria.js"></script>
 </body>
 </html>

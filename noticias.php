@@ -41,9 +41,10 @@ $resultado = mysqli_query($conn, $sql);
       <p>Entérate de las últimas novedades</p>
     </div>
  
-    <div class="search-box">
-      <input type="text" placeholder="Buscar...">
-    </div>
+       <div class="search-box">
+       <input type="text" placeholder="Buscar...">
+      </div>
+
  
     <div class="feed-container">
  
@@ -101,30 +102,11 @@ $resultado = mysqli_query($conn, $sql);
  
   </section>
 </div>
+
+<?php include("componentes/footer.php"); ?>
+<script src="js/leercronica.js"></script>
  
-<footer class="footer-global">
-    <div class="footer-content">
-      <h2>Crónica Huejutlense</h2>
- 
-      <div class="footer-contact">
-          <p>
-            <strong>Correo:</strong>
-            contacto@cronicahuejutla.com
-          </p>
- 
-          <p>
-            <strong>Teléfono:</strong>
-            +52 775 487 9831
-          </p>
- 
-          <p>
-            <strong>Ubicación:</strong>
-            Huejutla de Reyes, Hidalgo
-          </p>
-      </div>
-    </div>
-</footer>
- 
+
 </body>
 </html>
  

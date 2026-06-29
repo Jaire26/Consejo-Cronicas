@@ -158,6 +158,7 @@ $config = mysqli_fetch_assoc($res_conf);
     menuToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
   });
 </script>
+<script src="js/leercronica.js"></script>
  
 </body>
 </html>
