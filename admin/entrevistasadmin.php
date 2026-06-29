@@ -119,10 +119,13 @@ function generarResumen($texto, $limite = 160) {
             <h2>Entrevistas</h2>
             <p>Conoce Todo Lo Interesante Sobre Temas Relevantes</p>
         </div>
-        <div class="search-box">
-            <input type="text" placeholder="Buscar...">
-        </div>
+
+
         
+      <div class="search-box">
+        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
+      </div>
+
         <div class="contenido" style="width: 100%; max-width: 100%; display: block; box-sizing: border-box;">
             <div class="noticias" style="width: 100%; max-width: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box;">
                 <?php 
