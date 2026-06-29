@@ -41,8 +41,8 @@ $resultado = mysqli_query($conn, $sql);
       <p>Entérate de las últimas novedades</p>
     </div>
  
-       <div class="search-box">
-       <input type="text" placeholder="Buscar...">
+      <div class="search-box">
+        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
       </div>
 
  
