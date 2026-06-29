@@ -132,7 +132,8 @@ function generarResumen($texto, $limite = 160) {
                 if (mysqli_num_rows($res_entrevistas) > 0) {
                     while ($entrevista = mysqli_fetch_assoc($res_entrevistas)) { 
                 ?>
-                        <article class="tarjeta-admin" style="display: flex; gap: 35px; margin-bottom: 30px; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(62, 22, 19, 0.05); align-items: flex-start; border: 1px solid #f1ddc4; width: 95%; max-width: 1150px; box-sizing: border-box;">
+
+                        <article class="feed-card tarjeta-admin" style="display: flex; gap: 35px; margin-bottom: 30px; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(62, 22, 19, 0.05); align-items: flex-start; border: 1px solid #f1ddc4; width: 95%; max-width: 1150px; box-sizing: border-box;">
                             <div style="flex-shrink: 0; width: 280px; height: 190px; overflow: hidden; border-radius: 10px;">
                                 <img src="../img/entrevistas/<?php echo $entrevista['imagen']; ?>" alt="Foto de la entrevista" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
