@@ -80,5 +80,7 @@ $resultado = mysqli_query($conn, $sql);
   </div>
   
   <?php include("componentes/footer.php"); ?>
+  
+<script src="js/leercronica.js"></script>
 </body>
 </html>
