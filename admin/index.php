@@ -42,10 +42,10 @@ $config = mysqli_fetch_assoc($res_conf);
        <span class="usuario-sesion">
         Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?>
       </span>
- 
-      <div class="search-box">
-        <input type="text" placeholder="Buscar...">
-      </div>
+
+        <div class="search-box">
+            <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
+        </div>
 
 
       
