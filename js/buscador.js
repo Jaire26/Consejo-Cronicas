@@ -1,85 +1,87 @@
-document.addEventListener("DOMContentLoaded", function () {
+// Buscador Universal - Versión Definitiva Libre de Errores
+document.getElementById('inputBusqueda').addEventListener('keyup', function() {
+    let filtro = this.value.toLowerCase().trim();
 
-    const input = document.getElementById("inputBusqueda");
+    // Seleccionamos las tarjetas y las imágenes directas
+    let tarjetas = document.querySelectorAll('.opcion-card, .card:not(.admin-card), [class*="-card"]:not(.admin-card), .tarjeta-entrevista:not(.admin-card), .gallery-item-container, .gallery img');
 
-    if (!input) return;
+    let contenedorPadre = document.querySelector('.opciones-grid, .cards, .gallery, .feed-container, .feed-grid, .noticias');
 
-    input.addEventListener("keyup", function () {
+    // 1. Limpieza absoluta inmediata de cualquier mensaje de error anterior
+    let mensajeExistente = document.getElementById('sin-resultados-busqueda');
+    if (mensajeExistente) {
+        mensajeExistente.remove();
+    }
 
-        const filtro = this.value.toLowerCase().trim();
-
-        // Todos los tipos de tarjetas del sistema
-        const tarjetas = document.querySelectorAll(`
-            .opcion-card,
-            .feed-card,
-            .tarjeta-admin,
-            .tarjeta-entrevista,
-            .card:not(.admin-card),
-            .gallery-item-container
-        `);
-
-        const contenedor =
-            document.querySelector(".opciones-grid") ||
-            document.querySelector(".feed-container") ||
-            document.querySelector(".noticias") ||
-            document.querySelector(".gallery") ||
-            document.querySelector(".cards") ||
-            document.querySelector(".feed-grid");
-
-        // Eliminar mensaje anterior
-        const anterior = document.getElementById("sin-resultados-busqueda");
-        if (anterior) anterior.remove();
-
-        let encontrados = 0;
-
-        tarjetas.forEach(function (tarjeta) {
-
-            let titulo = "";
-
-            const h2 = tarjeta.querySelector("h2");
-            const h3 = tarjeta.querySelector("h3");
-
-            if (h2) {
-                titulo = h2.textContent.toLowerCase();
-            } else if (h3) {
-                titulo = h3.textContent.toLowerCase();
-            }
-
-            if (titulo.includes(filtro) || filtro === "") {
-
-                if (tarjeta.classList.contains("opcion-card")) {
-                    tarjeta.style.display = "block";
-                } else {
-                    tarjeta.style.display = "";
-                }
-
-                encontrados++;
-
-            } else {
-
-                tarjeta.style.display = "none";
-
-            }
-
+    // 2. Si el buscador está vacío, mostramos todo y detenemos el script
+    if (filtro === "") {
+        tarjetas.forEach(function(tarjeta) {
+            tarjeta.style.setProperty('display', '', 'important');
         });
+        return;
+    }
 
-        if (encontrados === 0 && filtro !== "" && contenedor) {
+    let encontrados = 0;
 
-            const mensaje = document.createElement("p");
+    tarjetas.forEach(function(tarjeta) {
+        let tituloText = "";
 
-            mensaje.id = "sin-resultados-busqueda";
-            mensaje.textContent = "No se encontraron resultados para tu búsqueda.";
+        // CASO A: Imagen directa (Galería Pública)
+        if (tarjeta.tagName.toLowerCase() === 'img') {
+            let dataTitle = tarjeta.getAttribute('data-title');
+            if (dataTitle) {
+                tituloText = dataTitle.toLowerCase().trim();
+            } else if (tarjeta.getAttribute('alt')) {
+                tituloText = tarjeta.getAttribute('alt').toLowerCase().trim();
+            }
+        }
+        // CASO B: Tarjetas comunes
+        else {
+            let tituloElemento = tarjeta.querySelector('.historia-titulo, .galeria-titulo, .titulo-entrevista, h3, h2');
 
-            mensaje.style.textAlign = "center";
-            mensaje.style.width = "100%";
-            mensaje.style.padding = "25px";
-            mensaje.style.color = "#7C3F20";
-            mensaje.style.fontWeight = "600";
+            if (tituloElemento) {
+                tituloText = tituloElemento.textContent.toLowerCase().trim();
+            }
+        }
 
-            contenedor.appendChild(mensaje);
+        // Evaluamos si el texto coincide con lo escrito
+        if (tituloText !== "") {
 
+            if (tituloText.includes(filtro)) {
+                tarjeta.style.setProperty('display', '', 'important');
+                encontrados++;
+            } else {
+                tarjeta.style.setProperty('display', 'none', 'important');
+            }
+
+        } else {
+            tarjeta.style.setProperty('display', 'none', 'important');
         }
 
     });
+
+    // Mostrar mensaje si no hay resultados
+    if (encontrados === 0 && contenedorPadre) {
+
+        let mensajeNoResultados = document.createElement('p');
+
+        mensajeNoResultados.id = 'sin-resultados-busqueda';
+        mensajeNoResultados.textContent = 'No se encontraron resultados para tu búsqueda.';
+
+        mensajeNoResultados.style.cssText = `
+            grid-column: 1 / -1 !important;
+            display: block !important;
+            width: 100% !important;
+            text-align: center !important;
+            color: #a66b37 !important;
+            font-weight: 500 !important;
+            padding: 50px 10px !important;
+            font-family: 'Poppins', sans-serif !important;
+            clear: both !important;
+            flex-basis: 100% !important;
+        `;
+
+        contenedorPadre.appendChild(mensajeNoResultados);
+    }
 
 });
