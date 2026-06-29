@@ -149,6 +149,6 @@ if (!$resultado) {
  
 <?php include("../componentes/footer.php"); ?>
 
-<script src="js/buscador.js"></script>
+<script src="../js/buscador.js"></script>
 </body>
 </html>
