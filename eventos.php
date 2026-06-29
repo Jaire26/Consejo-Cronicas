@@ -45,6 +45,11 @@ $resultado = mysqli_query($conn, $query);
       <p>Administra las novedades culturales</p>
     </div>
 
+    <div class="search-box">
+        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
+    </div>
+
+    <div class="cards">
     <div class="feed-container">
 
       <?php if(mysqli_num_rows($resultado) > 0) { ?>
@@ -82,5 +87,6 @@ $resultado = mysqli_query($conn, $query);
 </div>
 
 <?php include("componentes/footer.php"); ?>
+<script src="../js/buscador.js"></script>
 </body>
 </html>
