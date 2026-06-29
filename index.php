@@ -47,9 +47,12 @@ $config = mysqli_fetch_assoc($res_conf);
     </div>
  
     <div class="nav-actions" id="navActions">
+    
+
       <div class="search-box">
-        <input type="text" placeholder="Buscar...">
+        <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
       </div>
+
       <a href="login.php" class="btn-login">Iniciar sesión</a>
     </div>
  
