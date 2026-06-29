@@ -3,8 +3,8 @@ document.getElementById('inputBusqueda').addEventListener('keyup', function() {
     let filtro = this.value.toLowerCase().trim();
     
     // Seleccionamos las tarjetas y las imágenes directas
-    let tarjetas = document.querySelectorAll('.card:not(.admin-card), [class*="-card"]:not(.admin-card), .gallery-item-container, .gallery img');
-    let contenedorPadre = document.querySelector('.cards, .gallery, .feed-container, .feed-grid');
+    let tarjetas = document.querySelectorAll('.card:not(.admin-card), [class*="-card"]:not(.admin-card), .tarjeta-entrevista:not(.admin-card), .gallery-item-container, .gallery img');
+    let contenedorPadre = document.querySelector('.cards, .gallery, .feed-container, .feed-grid, .noticias');
     
     // 1. Limpieza absoluta inmediata de cualquier mensaje de error anterior
     let mensajeExistente = document.getElementById('sin-resultados-busqueda');
@@ -34,9 +34,9 @@ document.getElementById('inputBusqueda').addEventListener('keyup', function() {
                 tituloText = tarjeta.getAttribute('alt').toLowerCase().trim();
             }
         } 
-        // CASO B: Tarjeta común (Historia, Crónicas, etc.) -> Buscamos los textos de encabezado
+        // CASO B: Tarjeta común (Historia, Crónicas, Entrevistas, etc.) -> Buscamos los textos de encabezado
         else {
-            let tituloElemento = tarjeta.querySelector('.historia-titulo, .galeria-titulo, h3, h2');
+            let tituloElemento = tarjeta.querySelector('.historia-titulo, .galeria-titulo, .titulo-entrevista, h3, h2');
             if (tituloElemento) {
                 tituloText = tituloElemento.textContent.toLowerCase().trim();
             }

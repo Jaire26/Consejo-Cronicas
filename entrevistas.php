@@ -7,11 +7,11 @@ include("conexion/conexion.php");
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
 $res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
-
+ 
 // 2. Traer todas las entrevistas (el filtrado se hace en vivo con JavaScript)
 $query_entrevistas = "SELECT * FROM entrevistas ORDER BY id DESC";
 $res_entrevistas = mysqli_query($conn, $query_entrevistas);
- 
+
 // 3. Función para generar el resumen corto de cada entrevista
 function generarResumen($texto, $limite = 160) {
     $texto = trim(strip_tags($texto));
@@ -26,7 +26,6 @@ function generarResumen($texto, $limite = 160) {
     return htmlspecialchars($cortado) . '…';
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
