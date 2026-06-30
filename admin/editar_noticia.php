@@ -6,8 +6,8 @@ if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
- 
 include("../conexion/conexion.php");
+include("funciones_imagenes.php");
  
 // Traer la configuración (para el logo dinámico)
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
@@ -46,8 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
  
         $nuevaImagen = time() . "_" . basename($_FILES["imagen"]["name"]);
- 
-        if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $carpeta . $nuevaImagen)) {
+        if (comprimirImagen($_FILES["imagen"]["tmp_name"], $carpeta . $nuevaImagen)) {
  
             // Borrar la imagen vieja si existía
             if (!empty($imagen) && file_exists($carpeta . $imagen)) {
@@ -73,7 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             for ($i = 0; $i < $total; $i++) {
                 if ($_FILES["imagenes"]["error"][$i] == 0) {
                     $nombreImg = time() . "_" . $i . "_" . basename($_FILES["imagenes"]["name"][$i]);
-                    if (move_uploaded_file($_FILES["imagenes"]["tmp_name"][$i], $carpeta . $nombreImg)) {
+                    if (comprimirImagen($_FILES["imagenes"]["tmp_name"][$i], $carpeta . $nombreImg)) {
+                    
                         $nombreImgEscapado = mysqli_real_escape_string($conn, $nombreImg);
                         mysqli_query($conn, "INSERT INTO noticias_imagenes (id_noticia, imagen, orden) VALUES ($id_noticia, '$nombreImgEscapado', $i)");
                     }

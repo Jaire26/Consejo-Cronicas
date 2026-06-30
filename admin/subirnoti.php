@@ -5,9 +5,8 @@ if (!isset($_SESSION["id_usuario"])) {
     header("Location: ../login.php");
     exit();
 }
- 
-include("../conexion/conexion.php");
- 
+ include("../conexion/conexion.php");
+include("funciones_imagenes.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
     $titulo = mysqli_real_escape_string($conn, $_POST["titulo"]);
@@ -26,12 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imagen = "";
  
     if(isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0){
-        $imagen = time() . "_" . basename($_FILES["imagen"]["name"]);
-        move_uploaded_file(
-            $_FILES["imagen"]["tmp_name"],
-            $carpeta . $imagen
-        );
+    $imagen = time() . "_" . basename($_FILES["imagen"]["name"]);
+    comprimirImagen($_FILES["imagen"]["tmp_name"], $carpeta . $imagen);
     }
+
     $sql = "INSERT INTO noticias
         (titulo, contenido, imagen, fecha_publicacion, categoria, id_usuario)
         VALUES
@@ -47,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             for ($i = 0; $i < $total; $i++) {
                 if ($_FILES["imagenes"]["error"][$i] == 0) {
                     $nombreImg = time() . "_" . $i . "_" . basename($_FILES["imagenes"]["name"][$i]);
-                    if (move_uploaded_file($_FILES["imagenes"]["tmp_name"][$i], $carpeta . $nombreImg)) {
+                    if (comprimirImagen($_FILES["imagenes"]["tmp_name"][$i], $carpeta . $nombreImg)) {
                         $nombreImgEscapado = mysqli_real_escape_string($conn, $nombreImg);
                         mysqli_query($conn, "INSERT INTO noticias_imagenes (id_noticia, imagen, orden) VALUES ($id_noticia_nueva, '$nombreImgEscapado', $i)");
                     }
