@@ -11,7 +11,7 @@ include("../conexion/conexion.php");
  
 // Traer la configuración (para el logo dinámico)
 $query_conf = "SELECT * FROM configuracion WHERE id = 1";
-$res_coynf = mysqli_query($conn, $query_conf);
+$res_conf = mysqli_query($conn, $query_conf);
 $config = mysqli_fetch_assoc($res_conf);
  
 // Validar que llegó un id válido
