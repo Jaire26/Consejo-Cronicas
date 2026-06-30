@@ -326,11 +326,13 @@ section {
 }
  
 /* Tarjeta Identidad */
-.identidad-card {
-  display: flex;
-  align-items: stretch;
-  max-width: 1200px;
-  margin: 0 auto;
+
+.identidad-card img {
+  width: 35%;
+  height: 350px; /* dale una altura fija para que no se vea "achatada" */
+  object-fit: cover;
+  border-radius: 20px; /* opcional, para que combine con el resto de las cards */
+  align-self: center;
 }
  
 .identidad-card img {
