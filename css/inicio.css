@@ -327,28 +327,25 @@ section {
  
 /* Tarjeta Identidad */
 
+.identidad-card {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .identidad-card img {
   width: 35%;
-  height: 350px; /* dale una altura fija para que no se vea "achatada" */
+  height: 350px;
   object-fit: cover;
-  border-radius: 20px; /* opcional, para que combine con el resto de las cards */
-  align-self: center;
+  border-radius: 20px;
+  margin: 0 auto;
+  display: block;
 }
- 
-.identidad-card img {
-  width: 35%;
-  object-fit: cover;
-}
- 
+
 .identidad-card .card-content {
   width: 65%;
   padding: 35px;
-}
- 
-.identidad-card h3 {
-  font-size: 2rem;
-  color: var(--color2);
-  margin-bottom: 20px;
 }
  
 /* Galeria */
