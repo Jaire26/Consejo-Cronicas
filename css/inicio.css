@@ -394,45 +394,25 @@ section {
     text-align:center;
 
 }
+.footer-logo-box{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff8f1;
+    padding: 18px 28px;
+    border-radius: 18px;
+    box-shadow: 0 0 22px rgba(0,0,0,.25);
+    margin-bottom: 25px;
+}
 
 .footer-logo{
-
-    width:145px;
-
-    background:#fff8f1;
-
-    border-radius:50%;
-
-    padding:15px;
-
-    box-shadow:0 0 22px rgba(0,0,0,.25);
-
-    margin-bottom:30px;
-
+    width: 220px;
+    height: auto;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
-
-.footer-content h2{
-
-    font-family:'Playfair Display',serif;
-
-    font-size:2.6rem;
-
-    margin-bottom:12px;
-
-}
-
-.footer-slogan{
-
-    color:#f2d7b2;
-
-    max-width:750px;
-
-    margin:auto;
-
-    line-height:1.9;
-
-}
-
 .footer-redes{
 
     display:flex;

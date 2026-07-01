@@ -15,7 +15,10 @@ $rutaLogo = (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? "../img/" : "i
 
     <div class="footer-content">
 
-        <img src="<?php echo $rutaLogo . $config['logo']; ?>" class="footer-logo" alt="Logo">
+
+    <div class="footer-logo-box">
+      <img src="<?php echo $rutaLogo . $config['logo']; ?>" class="footer-logo" alt="Logo">
+    </div>
 
         <h2>Crónica Huejutlense</h2>
 
