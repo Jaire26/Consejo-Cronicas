@@ -401,7 +401,7 @@ section {
 
     background:#fff8f1;
 
-    border-radius:60%;
+    border-radius:50%;
 
     padding:15px;
 
@@ -415,7 +415,7 @@ section {
 
     font-family:'Playfair Display',serif;
 
-    font-size:2.4rem;
+    font-size:2.6rem;
 
     margin-bottom:12px;
 
@@ -425,7 +425,7 @@ section {
 
     color:#f2d7b2;
 
-    max-width:710px;
+    max-width:750px;
 
     margin:auto;
 
