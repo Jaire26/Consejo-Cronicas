@@ -428,8 +428,8 @@ footer p {
     flex-direction: column;
     align-items: center;
     background: rgba(241, 216, 184, .98);
-    margin-top: 12px;
-    padding: 8px 0 14px;
+    margin-top: 10px;
+    padding: 6px 0 12px;
     border-top: 1px solid rgba(211,140,58,.3);
     border-radius: 0 0 15px 15px;
   }
@@ -450,8 +450,8 @@ footer p {
 
   .menu .nav-link {
     display: block;
-    padding: 8px 0;
-    font-size: 1rem;
+    padding: 6px 0;
+    font-size: 0.95rem;
     line-height: 1.2;
     border-bottom: 1px solid rgba(211,140,58,.2);
   }
@@ -462,7 +462,12 @@ footer p {
 
   .menu-title {
     width: 100%;
-    margin: 10px 0 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 8px 0 2px;
+    font-size: 0.85rem;
   }
 
   .nav-actions {
@@ -470,8 +475,8 @@ footer p {
     max-width: 320px;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 6px 0 0;
+    gap: 8px;
+    padding: 4px 0 0;
   }
 
   /* Buscador y login a ancho completo */
