@@ -366,7 +366,7 @@ section {
     overflow:hidden;
 
 }
-/*prueba
+/*prueba*/
 .footer-franja{
     width:100%;
     height:70px;
@@ -374,7 +374,8 @@ section {
     background-repeat:repeat-x;
     background-size:auto 70px;
 }
-*/
+
+/*
 .footer-franja{
 
     width:100%;
@@ -390,7 +391,7 @@ section {
     border-bottom:3px solid #d4a04c;
 
 }
-
+*/
 .footer-content{
 
     max-width:900px;
