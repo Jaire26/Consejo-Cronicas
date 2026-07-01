@@ -366,14 +366,22 @@ section {
     overflow:hidden;
 
 }
-
+/*prueba*/
+.footer-franja{
+    width:100%;
+    height:70px;
+    background-image:url("../img/LETRAHEUJU.jpeg");
+    background-repeat:repeat-x;
+    background-size:auto 70px;
+}
+/*
 .footer-franja{
 
     width:100%;
 
     height:70px;
 
-    background-image: url("img/franja-footer.jpeg");
+    background-image: url("../img/franja-footer.jpeg");
 
     background-repeat:repeat-x;
 
@@ -382,7 +390,7 @@ section {
     border-bottom:3px solid #d4a04c;
 
 }
-
+*/
 .footer-content{
 
     max-width:900px;
