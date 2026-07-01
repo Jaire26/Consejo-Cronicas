@@ -424,6 +424,9 @@ footer p {
 
   .navbar-collapse {
     flex-basis: 100%;
+  }
+
+  .navbar-collapse.show {
     display: flex !important;
     flex-direction: column;
     align-items: center;
