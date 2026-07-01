@@ -411,16 +411,13 @@ section {
 
 }
 
-
-
-
 .footer-content h2{
 
     font-family:'Playfair Display',serif;
 
     font-size:2.4rem;
 
-    margin-bottom:10px;
+    margin-bottom:12px;
 
 }
 
@@ -428,11 +425,11 @@ section {
 
     color:#f2d7b2;
 
-    max-width:700px;
+    max-width:710px;
 
     margin:auto;
 
-    line-height:1.8;
+    line-height:1.9;
 
 }
 
